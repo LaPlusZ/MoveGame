@@ -18,4 +18,15 @@ public class MovingWall : MonoBehaviour
         await transform.DOMoveZ(transform.position.z - distance, duration).SetEase(Ease.Linear).AsyncWaitForCompletion();
         GameObject.Destroy(gameObject);
     }
+
+    void OnCollisionEnter(Collision collision) 
+    {
+        if (collision.gameObject.CompareTag("Landmark"))
+        {
+            GameObject lose = GameObject.Find("Lose");
+            lose.SetActive(true);
+
+            Time.timeScale = 0;
+        }
+    }
 }
