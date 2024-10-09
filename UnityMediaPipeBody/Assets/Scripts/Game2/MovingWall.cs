@@ -3,30 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
+using System.Threading.Tasks;
 
 public class MovingWall : MonoBehaviour
 {
-    public int movingSpeed;
-    public int duration;
+    public float tweenTime = 10f;
+    public int targetZOffset;
+    
+    private Rigidbody rb;
+    private UIManager uiManager;
+    public bool stopped;
+    private Vector3 targetPosition;
     // Start is called before the first frame update
     async void Start()
     {
-        int distance = movingSpeed*duration;
-        float orgY = transform.position.y;
-        transform.position = new Vector3(transform.position.x, -26, transform.position.z);
-        transform.DOMoveY(orgY, 2).SetEase(Ease.InOutQuart);
-        await transform.DOMoveZ(transform.position.z - distance, duration).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        rb = GetComponent<Rigidbody>();
+        float orgYPos = rb.position.y + 32;
+        
+        uiManager = FindObjectOfType<UIManager>();
+
+        targetPosition = rb.position + new Vector3(0,0,targetZOffset);
+        Vector3 step1 = new Vector3(rb.position.x, orgYPos, rb.position.z + ((2f/tweenTime)*targetZOffset));
+
+        await rb.DOMove(step1, 2).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        await rb.DOMoveZ(targetPosition.z, tweenTime-2).SetEase(Ease.Linear).AsyncWaitForCompletion();
         GameObject.Destroy(gameObject);
     }
 
     void OnCollisionEnter(Collision collision) 
     {
-        if (collision.gameObject.CompareTag("Landmark"))
+        Debug.Log(collision.gameObject.tag);
+        if (collision.gameObject.CompareTag("Landmark") && stopped == false)
         {
-            GameObject lose = GameObject.Find("Lose");
-            lose.SetActive(true);
-
-            Time.timeScale = 0;
+            uiManager.Lose();
         }
     }
 }
