@@ -30,4 +30,15 @@ public class WallSpawner : MonoBehaviour
             wall.stopped = true;
         }
     }
+
+    public void Continue()
+    {
+        stopped = false;
+        MovingWall[] walls = FindObjectsOfType<MovingWall>();
+        foreach (MovingWall wall in walls)
+        {
+            wall.stopped = false;
+            wall.checkTimeOut();
+        }
+    }
 }

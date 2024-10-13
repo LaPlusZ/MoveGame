@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
 using System.Threading.Tasks;
+using System.Threading;
 
 public class MovingWall : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class MovingWall : MonoBehaviour
     private UIManager uiManager;
     public bool stopped;
     private Vector3 targetPosition;
+    private bool timeOut;
     // Start is called before the first frame update
     async void Start()
     {
@@ -27,7 +29,16 @@ public class MovingWall : MonoBehaviour
 
         await rb.DOMove(step1, 2).SetEase(Ease.Linear).AsyncWaitForCompletion();
         await rb.DOMoveZ(targetPosition.z, tweenTime-2).SetEase(Ease.Linear).AsyncWaitForCompletion();
+        timeOut = true;
         GameObject.Destroy(gameObject);
+    }
+
+    public void checkTimeOut()
+    {
+        if (timeOut == true)
+        {
+            GameObject.Destroy(gameObject);
+        }
     }
 
     void OnCollisionEnter(Collision collision) 
