@@ -6,14 +6,16 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using Unity.VisualScripting;
 using UnityEngine.Rendering.HighDefinition;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
     public TextMeshProUGUI WinText;
     public TextMeshProUGUI LoseText;
+    public RectTransform TransitionObject;
     public int gameIndex;
     public bool paused;
-    private bool db;
+    public bool db;
 
     private Volume volume; //Post Processing Volume
     private ColorAdjustments colorAdjustments;
@@ -25,6 +27,7 @@ public class UIManager : MonoBehaviour
         {
             colorAdjustments = obj;
         }
+        transition_open();
     }
 
     public void Lose()
@@ -49,6 +52,7 @@ public class UIManager : MonoBehaviour
 
             DOTween.To(() => t, x => t = x, 0f, 1f)
                 .SetEase(Ease.InOutSine)
+                .SetUpdate(true)
                 .OnUpdate(() => 
                 {
                     Time.timeScale = t;
@@ -58,6 +62,7 @@ public class UIManager : MonoBehaviour
                 {
                     Debug.Log("Tween completed!");
                     db = false;
+                    paused = true;
                 });
         }
         else
@@ -71,6 +76,7 @@ public class UIManager : MonoBehaviour
 
             DOTween.To(() => t, x => t = x, 1f, 1f)
                 .SetEase(Ease.InOutSine)
+                .SetUpdate(true)
                 .OnUpdate(() => 
                 {
                     Time.timeScale = t;
@@ -80,7 +86,30 @@ public class UIManager : MonoBehaviour
                 {
                     Debug.Log("Tween completed!");
                     db = false;
+                    paused = false;
                 });
         }
+    }
+
+    public void loadScene(string sceneName)
+    {
+        transition_close();
+        SceneManager.LoadScene(sceneName);
+    }
+
+    public void transition_close()
+    {
+        TransitionObject.rotation = Quaternion.Euler(Vector3.zero);
+        TransitionObject.sizeDelta = new Vector2(3000, 3000);
+        TransitionObject.DORotate(new Vector3(0,0,360), 1.5f, RotateMode.LocalAxisAdd).SetEase(Ease.OutQuart).SetUpdate(true);
+        TransitionObject.DOSizeDelta(Vector2.zero, 1.5f).SetEase(Ease.OutQuart).SetUpdate(true);
+    }
+
+    public void transition_open()
+    {
+        TransitionObject.rotation = Quaternion.Euler(Vector3.zero);
+        TransitionObject.sizeDelta = Vector3.zero;
+        TransitionObject.DORotate(new Vector3(0,0,360), 2f, RotateMode.LocalAxisAdd).SetEase(Ease.OutQuart).SetUpdate(true);
+        TransitionObject.DOSizeDelta(new Vector2(3000, 3000), 1.5f).SetEase(Ease.InQuart).SetUpdate(true);
     }
 }
