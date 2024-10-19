@@ -18,6 +18,7 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public CanvasGroup menuContent;
     public bool pauseGame;
     public ButtonAnimation parentMenu;
+    public bool disableTwist;
     private RectTransform rectTransform;
     private Image image;
     private bool isMenuOn;
@@ -29,7 +30,7 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
-        rectTransform.localRotation = Quaternion.Euler(0,0,4.413f);
+        if (disableTwist == false) { rectTransform.localRotation = Quaternion.Euler(0,0,4.413f); }
         image = GetComponent<Image>();
         orgColor = image.color;
 
@@ -55,7 +56,7 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public void OnPointerDown(PointerEventData eventData)
     {
         if (isMenuButton == true && isMenuOn == true) {return;}
-        rectTransform.DORotate(new Vector3(0,0,buttonTwistScale), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
+        if (disableTwist == false) { rectTransform.DORotate(new Vector3(0,0,buttonTwistScale), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true); }
         rectTransform.DOScale(new Vector3(buttonZoomScale,buttonZoomScale,buttonZoomScale), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
     }
 
@@ -65,7 +66,7 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
         {
             OnClick();
             
-            rectTransform.DOLocalRotate(new Vector3(0,0,4.413f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
+            if (disableTwist == false) { rectTransform.DOLocalRotate(new Vector3(0,0,4.413f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true); }
             rectTransform.DOScale(new Vector3(1f,1f,1f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
         }
         else if (isMenuOn == false && FindAnyObjectByType<UIManager>().paused == false)
@@ -107,14 +108,14 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         if (disableAnim == true) {return;}
-        rectTransform.DORotate(new Vector3(0,0,(4.413f+buttonTwistScale)/2f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
+        if (disableTwist == false) { rectTransform.DORotate(new Vector3(0,0,(4.413f+buttonTwistScale)/2f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true); }
         rectTransform.DOScale(new Vector3((buttonZoomScale+1)/2,(buttonZoomScale+1)/2,(buttonZoomScale+1)/2), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         if (disableAnim == true) {return;}
-        rectTransform.DOLocalRotate(new Vector3(0,0,4.413f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
+        if (disableTwist == false) { rectTransform.DOLocalRotate(new Vector3(0,0,4.413f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true); }
         rectTransform.DOScale(new Vector3(1f,1f,1f), 0.2f).SetEase(Ease.OutQuart).SetUpdate(true);
     }
 }

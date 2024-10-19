@@ -7,6 +7,8 @@ using UnityEngine.Rendering;
 using Unity.VisualScripting;
 using UnityEngine.Rendering.HighDefinition;
 using UnityEngine.SceneManagement;
+using Unity.Mathematics;
+using System.Threading.Tasks;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,8 +19,11 @@ public class UIManager : MonoBehaviour
     public bool paused;
     public bool db;
 
+    public bool disableOpeningTransition;
+
     private Volume volume; //Post Processing Volume
     private ColorAdjustments colorAdjustments;
+    private Transform camera;
 
     void Start()
     {
@@ -27,7 +32,11 @@ public class UIManager : MonoBehaviour
         {
             colorAdjustments = obj;
         }
-        transition_open();
+        if (disableOpeningTransition == false)
+        {
+            transition_open();
+        }
+        
     }
 
     public void Lose()
@@ -91,25 +100,26 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void loadScene(string sceneName)
+    public async void loadScene(string sceneName)
     {
-        transition_close();
+        await transition_close();
         SceneManager.LoadScene(sceneName);
+        Time.timeScale = 1;
     }
 
-    public void transition_close()
+    public async Task transition_close()
     {
         TransitionObject.rotation = Quaternion.Euler(Vector3.zero);
         TransitionObject.sizeDelta = new Vector2(3000, 3000);
         TransitionObject.DORotate(new Vector3(0,0,360), 1.5f, RotateMode.LocalAxisAdd).SetEase(Ease.OutQuart).SetUpdate(true);
-        TransitionObject.DOSizeDelta(Vector2.zero, 1.5f).SetEase(Ease.OutQuart).SetUpdate(true);
+        await TransitionObject.DOSizeDelta(Vector2.zero, 1.5f).SetEase(Ease.OutQuart).SetUpdate(true).AsyncWaitForCompletion();
     }
 
-    public void transition_open()
+    public async Task transition_open()
     {
         TransitionObject.rotation = Quaternion.Euler(Vector3.zero);
         TransitionObject.sizeDelta = Vector3.zero;
         TransitionObject.DORotate(new Vector3(0,0,360), 2f, RotateMode.LocalAxisAdd).SetEase(Ease.OutQuart).SetUpdate(true);
-        TransitionObject.DOSizeDelta(new Vector2(3000, 3000), 1.5f).SetEase(Ease.InQuart).SetUpdate(true);
+        await TransitionObject.DOSizeDelta(new Vector2(3000, 3000), 1.5f).SetEase(Ease.InQuart).SetUpdate(true).AsyncWaitForCompletion();
     }
 }
