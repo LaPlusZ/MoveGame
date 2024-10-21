@@ -26,7 +26,7 @@ public class PipeServer : MonoBehaviour
     public float maxSpeed = 50f;
     public int samplesForPose = 1;
 
-    private Body body;
+    public Body body;
     private NamedPipeServerStream server;
 
     const int LANDMARK_COUNT = 33;
@@ -70,6 +70,7 @@ public class PipeServer : MonoBehaviour
 
         public Body(Transform parent, GameObject landmarkPrefab, GameObject linePrefab,float s, GameObject headPrefab)
         {
+            Debug.Log("start");
             this.parent = parent;
             for (int i = 0; i < instances.Length; ++i)
             {
