@@ -122,4 +122,9 @@ public class UIManager : MonoBehaviour
         TransitionObject.DORotate(new Vector3(0,0,360), 2f, RotateMode.LocalAxisAdd).SetEase(Ease.OutQuart).SetUpdate(true);
         await TransitionObject.DOSizeDelta(new Vector2(3000, 3000), 1.5f).SetEase(Ease.InQuart).SetUpdate(true).AsyncWaitForCompletion();
     }
+
+    public void retry()
+    {
+        loadScene(SceneManager.GetActiveScene().name);
+    }
 }

@@ -287,7 +287,7 @@ Material:
     - _NormalMapSpace: 0
     - _NormalScale: 2.68
     - _OPACITY: 1
-    - _ObjectSpaceUVMapping: 0
+    - _ObjectSpaceUVMapping: 1
     - _ObjectSpaceUVMappingEmissive: 0
     - _OpaqueCullMode: 2
     - _PPDLodThreshold: 3.4
