@@ -9,6 +9,8 @@ using UnityEngine;
 using System;
 using System.Net.Sockets;
 
+
+
 /* Currently very messy because both the server code and hand-drawn code is all in the same file here.
  * But it is still fairly straightforward to use as a reference/base.
  */
@@ -31,6 +33,11 @@ public class PipeServer : MonoBehaviour
 
     const int LANDMARK_COUNT = 33;
     const int LINES_COUNT = 11;
+
+    private Socket unixClient;  // Store the Unix socket as a class-level variable
+    private NetworkStream stream;
+    private BinaryReader br;
+    private bool isConnected = false;
 
     private Vector3 GetNormal(Vector3 p1, Vector3 p2, Vector3 p3)
     {
@@ -99,50 +106,50 @@ public class PipeServer : MonoBehaviour
         }
         public void UpdateLines()
         {
-            lines[0].positionCount = 4; //right foot
+            lines[0].positionCount = 4;
             lines[0].SetPosition(0, Position((Landmark)32));
             lines[0].SetPosition(1, Position((Landmark)30));
             lines[0].SetPosition(2, Position((Landmark)28));
             lines[0].SetPosition(3, Position((Landmark)32));
-            lines[1].positionCount = 4; //left foot
+            lines[1].positionCount = 4;
             lines[1].SetPosition(0, Position((Landmark)31));
             lines[1].SetPosition(1, Position((Landmark)29));
             lines[1].SetPosition(2, Position((Landmark)27));
             lines[1].SetPosition(3, Position((Landmark)31));
 
-            lines[2].positionCount = 3; //right leg
+            lines[2].positionCount = 3;
             lines[2].SetPosition(0, Position((Landmark)28));
             lines[2].SetPosition(1, Position((Landmark)26));
             lines[2].SetPosition(2, Position((Landmark)24));
-            lines[3].positionCount = 3; //left leg
+            lines[3].positionCount = 3;
             lines[3].SetPosition(0, Position((Landmark)27));
             lines[3].SetPosition(1, Position((Landmark)25));
             lines[3].SetPosition(2, Position((Landmark)23));
 
-            lines[4].positionCount = 5; //body
+            lines[4].positionCount = 5;
             lines[4].SetPosition(0, Position((Landmark)24));
             lines[4].SetPosition(1, Position((Landmark)23));
             lines[4].SetPosition(2, Position((Landmark)11));
             lines[4].SetPosition(3, Position((Landmark)12));
             lines[4].SetPosition(4, Position((Landmark)24));
 
-            lines[5].positionCount = 4; //right arm
+            lines[5].positionCount = 4;
             lines[5].SetPosition(0, Position((Landmark)12));
             lines[5].SetPosition(1, Position((Landmark)14));
             lines[5].SetPosition(2, Position((Landmark)16));
             lines[5].SetPosition(3, Position((Landmark)22));
-            lines[6].positionCount = 4; //left arm
+            lines[6].positionCount = 4;
             lines[6].SetPosition(0, Position((Landmark)11));
             lines[6].SetPosition(1, Position((Landmark)13));
             lines[6].SetPosition(2, Position((Landmark)15));
             lines[6].SetPosition(3, Position((Landmark)21));
 
-            lines[7].positionCount = 4; //right hand
+            lines[7].positionCount = 4;
             lines[7].SetPosition(0, Position((Landmark)16));
             lines[7].SetPosition(1, Position((Landmark)18));
             lines[7].SetPosition(2, Position((Landmark)20));
             lines[7].SetPosition(3, Position((Landmark)16));
-            lines[8].positionCount = 4; //left hand
+            lines[8].positionCount = 4;
             lines[8].SetPosition(0, Position((Landmark)15));
             lines[8].SetPosition(1, Position((Landmark)17));
             lines[8].SetPosition(2, Position((Landmark)19));
@@ -150,11 +157,11 @@ public class PipeServer : MonoBehaviour
 
             if (!head)
             {
-                lines[9].positionCount = 2; //mouth
+                lines[9].positionCount = 2;
                 lines[9].SetPosition(0, Position((Landmark)10));
                 lines[9].SetPosition(1, Position((Landmark)9));
 
-                lines[10].positionCount = 5; //eye and nose
+                lines[10].positionCount = 5;
                 lines[10].SetPosition(0, Position((Landmark)8));
                 lines[10].SetPosition(1, Position((Landmark)5));
                 lines[10].SetPosition(2, Position((Landmark)0));
@@ -227,7 +234,10 @@ public class PipeServer : MonoBehaviour
 
         for (int i = 0; i < LANDMARK_COUNT; ++i)
         {
-            b.instances[i].transform.localPosition=Vector3.MoveTowards(b.instances[i].transform.localPosition, b.localPositionTargets[i]+b.calibrationOffset, Time.deltaTime * maxSpeed);
+            b.instances[i].transform.localPosition = 
+                Vector3.MoveTowards(b.instances[i].transform.localPosition, 
+                b.localPositionTargets[i] + b.calibrationOffset, 
+                Time.deltaTime * maxSpeed);
         }
         b.UpdateLines();
 
@@ -251,116 +261,121 @@ public class PipeServer : MonoBehaviour
             Application.platform == RuntimePlatform.OSXPlayer || 
             Application.platform == RuntimePlatform.LinuxPlayer)
         {
-            var socketPath = "/tmp/UnityMediaPipeBody.sock";  // Unix socket path
-            var unixClient = new Socket(AddressFamily.Unix, SocketType.Stream, ProtocolType.IP);
-            var unixEndPoint = new UnixDomainSocketEndPoint(socketPath);
-
-            int retryCount = 0;
-            const int maxRetries = 5;
-
-            while (retryCount < maxRetries)
-            {
-                try
-                {
-                    unixClient.Connect(unixEndPoint);  // Connect to Unix socket on macOS/Linux
-                    print("Connected via Unix socket.");
-
-                    using (NetworkStream stream = new NetworkStream(unixClient))
-                    using (BinaryReader br = new BinaryReader(stream, Encoding.UTF8))
-                    {
-                        while (true)
-                        {
-                            try
-                            {
-                                Body h = body;
-                                var len = (int)br.ReadUInt32();  // Read message length
-                                var str = new string(br.ReadChars(len));  // Read the actual message
-                                string[] lines = str.Split('\n');  // Split into lines
-
-                                foreach (string l in lines)
-                                {
-                                    if (string.IsNullOrWhiteSpace(l))
-                                        continue;
-
-                                    string[] s = l.Split('|');
-                                    if (s.Length < 5) continue;
-
-                                    if (anchoredBody && s[0] != "ANCHORED") continue;
-                                    if (!anchoredBody && s[0] != "FREE") continue;
-
-                                    int i;
-                                    if (!int.TryParse(s[1], out i)) continue;
-                                    h.positionsBuffer[i].value += new Vector3(float.Parse(s[2]), float.Parse(s[3]), float.Parse(s[4]));
-                                    h.positionsBuffer[i].accumulatedValuesCount += 1;
-                                    h.active = true;
-                                }
-                            }
-                            catch (EndOfStreamException)
-                            {
-                                break;  // Client disconnected
-                            }
-                        }
-                    }
-                    break;  // Exit the retry loop on successful connection
-                }
-                catch (SocketException ex)
-                {
-                    Debug.LogError("Socket error: " + ex.Message);
-                    retryCount++;
-                    print("Retrying connection...");
-                    System.Threading.Thread.Sleep(1000); // Wait 1 second before retrying
-                }
-            }
+            StartUnixSocketCommunication();
         }
         else
         {
-            // Windows named pipe code
-            server = new NamedPipeServerStream("UnityMediaPipeBody", PipeDirection.InOut, 99, PipeTransmissionMode.Message);
-            print("Waiting for connection...");
-            server.WaitForConnection();  // Wait for the connection from Python
+            StartNamedPipeCommunication();
+        }
+    }
 
-            print("Connected via Named pipe.");
-            var br = new BinaryReader(server, Encoding.UTF8);
+    private void StartUnixSocketCommunication()
+    {
+        var socketPath = "/tmp/UnityMediaPipeBody.sock";  // Unix socket path
+        unixClient = new Socket(AddressFamily.Unix, SocketType.Stream, ProtocolType.IP);
+        var unixEndPoint = new UnixDomainSocketEndPoint(socketPath);
 
-            while (true)
+        int retryCount = 0;
+        const int maxRetries = 5;
+
+        while (retryCount < maxRetries)
+        {
+            try
             {
-                try
+                unixClient.Connect(unixEndPoint);  // Connect to Unix socket
+                Debug.Log("Connected via Unix socket.");
+                isConnected = true; // Set isConnected to true
+
+                using (stream = new NetworkStream(unixClient))
+                using (br = new BinaryReader(stream, Encoding.UTF8))
                 {
-                    Body h = body;
-                    var len = (int)br.ReadUInt32();
-                    var str = new string(br.ReadChars(len));
-                    string[] lines = str.Split('\n');
-
-                    foreach (string l in lines)
-                    {
-                        if (string.IsNullOrWhiteSpace(l))
-                            continue;
-
-                        string[] s = l.Split('|');
-                        if (s.Length < 5) continue;
-
-                        if (anchoredBody && s[0] != "ANCHORED") continue;
-                        if (!anchoredBody && s[0] != "FREE") continue;
-
-                        int i;
-                        if (!int.TryParse(s[1], out i)) continue;
-                        h.positionsBuffer[i].value += new Vector3(float.Parse(s[2]), float.Parse(s[3]), float.Parse(s[4]));
-                        h.positionsBuffer[i].accumulatedValuesCount += 1;
-                        h.active = true;
-                    }
+                    ProcessMessages(br);
                 }
-                catch (EndOfStreamException)
-                {
-                    break;  // Client disconnected
-                }
+                break;  // Exit the retry loop on successful connection
+            }
+            catch (SocketException ex)
+            {
+                Debug.LogError("Socket error: " + ex.Message);
+                retryCount++;
+                Thread.Sleep(3000); // Wait 2 seconds before retrying
             }
         }
     }
 
-    private void OnDisable()
+    private void StartNamedPipeCommunication()
     {
-        print("Client disconnected.");
-        server.Close();
-        server.Dispose();
+        server = new NamedPipeServerStream("UnityMediaPipeBody", PipeDirection.InOut, 99, PipeTransmissionMode.Message);
+        Debug.Log("Waiting for connection...");
+        server.WaitForConnection();  // Wait for the connection from Python
+        Debug.Log("Connected via Named pipe.");
+
+        using (var br = new BinaryReader(server, Encoding.UTF8))
+        {
+            ProcessMessages(br);
+        }
     }
+
+    private void ProcessMessages(BinaryReader br)
+    {
+        while (true)
+        {
+            try
+            {
+                Body h = body;
+                var len = (int)br.ReadUInt32();  // Read message length
+                var str = new string(br.ReadChars(len));  // Read the actual message
+                string[] lines = str.Split('\n');  // Split into lines
+
+                foreach (string l in lines)
+                {
+                    if (string.IsNullOrWhiteSpace(l)) continue;
+
+                    string[] s = l.Split('|');
+                    if (s.Length < 5) continue;
+
+                    if (anchoredBody && s[0] != "ANCHORED") continue;
+                    if (!anchoredBody && s[0] != "FREE") continue;
+
+                    if (!int.TryParse(s[1], out int i)) continue;
+                    h.positionsBuffer[i].value += new Vector3(float.Parse(s[2]), float.Parse(s[3]), float.Parse(s[4]));
+                    h.positionsBuffer[i].accumulatedValuesCount += 1;
+                    h.active = true;
+                }
+            }
+            catch (EndOfStreamException)
+            {
+                Debug.Log("Client disconnected");
+                break;  // Client disconnected
+            }
+        }
+    }
+
+    // Call this method on exit to clean up the connection properly
+    private void Cleanup()
+    {
+        if (isConnected)
+        {
+            try
+            {
+                br?.Close();
+                stream?.Close();
+                unixClient?.Shutdown(SocketShutdown.Both);
+                unixClient?.Close();
+                unixClient?.Dispose();
+                isConnected = false;
+                Debug.Log("Disconnected and cleaned up.");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError("Error during cleanup: " + ex.Message);
+            }
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Cleanup();
+    }
+
 }
+

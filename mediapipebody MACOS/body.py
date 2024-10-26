@@ -147,7 +147,7 @@ class BodyThread(threading.Thread):
                 ret = capture.ret
                 image = capture.frame
                 
-                image.flags.writeable = global_vars.DEBUG
+                #image.flags.writeable = global_vars.DEBUG
                 results = pose.process(image)
                 tf = time.time()
 

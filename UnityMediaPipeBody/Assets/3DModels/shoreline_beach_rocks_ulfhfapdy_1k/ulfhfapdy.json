@@ -1,0 +1,617 @@
+{
+  "assetCategories": {
+    "surface": {
+      "gravel": {
+        "natural": {}
+      }
+    }
+  },
+  "averageColor": "#000000",
+  "categories": [
+    "surface",
+    "gravel",
+    "natural"
+  ],
+  "comp_version": 1,
+  "description": "",
+  "displacementBias": 0.402807,
+  "displacementCalibrationAccuracy": 0.966429,
+  "displacementScale": 14.404061,
+  "environment": {
+    "biome": "ocean biome",
+    "region": "Europe"
+  },
+  "highest_available_res": 8192,
+  "id": "ulfhfapdy",
+  "json": {
+    "contentLength": 12961,
+    "uri": "ulfhfapdy.json"
+  },
+  "maps": [
+    {
+      "averageColor": "#949494",
+      "bitDepth": 32,
+      "colorSpace": "sRGB",
+      "contentLength": 119469395,
+      "maxIntensity": 246,
+      "mimeType": "image/x-exr",
+      "minIntensity": 20,
+      "name": "AO",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "ao",
+      "uri": "ulfhfapdy_8K_AO.exr"
+    },
+    {
+      "averageColor": "#949494",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 37694719,
+      "maxIntensity": 246,
+      "mimeType": "image/jpeg",
+      "minIntensity": 20,
+      "name": "AO",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "ao",
+      "uri": "ulfhfapdy_8K_AO.jpg"
+    },
+    {
+      "averageColor": "#645C4F",
+      "bitDepth": 16,
+      "colorSpace": "sRGB",
+      "contentLength": 253652083,
+      "maxIntensity": 165,
+      "mimeType": "image/x-exr",
+      "minIntensity": 0,
+      "name": "Basecolor",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "basecolor",
+      "uri": "ulfhfapdy_8K_Basecolor.exr"
+    },
+    {
+      "averageColor": "#645C4F",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 49221971,
+      "maxIntensity": 165,
+      "mimeType": "image/jpeg",
+      "minIntensity": 0,
+      "name": "Basecolor",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "basecolor",
+      "uri": "ulfhfapdy_8K_Basecolor.jpg"
+    },
+    {
+      "averageColor": "#808080",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 199380552,
+      "maxIntensity": 255,
+      "mimeType": "image/x-exr",
+      "minIntensity": 0,
+      "name": "Bump",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "bump",
+      "uri": "ulfhfapdy_8K_Bump.exr"
+    },
+    {
+      "averageColor": "#808080",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 16997111,
+      "maxIntensity": 255,
+      "mimeType": "image/jpeg",
+      "minIntensity": 0,
+      "name": "Bump",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "bump",
+      "uri": "ulfhfapdy_8K_Bump.jpg"
+    },
+    {
+      "averageColor": "#FFFFFF",
+      "bitDepth": 32,
+      "colorSpace": "sRGB",
+      "contentLength": 210409759,
+      "maxIntensity": 255,
+      "mimeType": "image/x-exr",
+      "minIntensity": 255,
+      "name": "Cavity",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "cavity",
+      "uri": "ulfhfapdy_8K_Cavity.exr"
+    },
+    {
+      "averageColor": "#FFFFFF",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 47647978,
+      "maxIntensity": 255,
+      "mimeType": "image/jpeg",
+      "minIntensity": 255,
+      "name": "Cavity",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "cavity",
+      "uri": "ulfhfapdy_8K_Cavity.jpg"
+    },
+    {
+      "averageColor": "#808080",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 266496472,
+      "maxIntensity": 190,
+      "mimeType": "image/x-exr",
+      "minIntensity": 81,
+      "name": "Displacement",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "displacement",
+      "uri": "ulfhfapdy_8K_Displacement.exr"
+    },
+    {
+      "averageColor": "#808080",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 5143982,
+      "maxIntensity": 190,
+      "mimeType": "image/jpeg",
+      "minIntensity": 81,
+      "name": "Displacement",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "displacement",
+      "uri": "ulfhfapdy_8K_Displacement.jpg"
+    },
+    {
+      "averageColor": "#131313",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 177962699,
+      "maxIntensity": 35,
+      "mimeType": "image/x-exr",
+      "minIntensity": 10,
+      "name": "Gloss",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "gloss",
+      "uri": "ulfhfapdy_8K_Gloss.exr"
+    },
+    {
+      "averageColor": "#131313",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 23774102,
+      "maxIntensity": 35,
+      "mimeType": "image/jpeg",
+      "minIntensity": 10,
+      "name": "Gloss",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "gloss",
+      "uri": "ulfhfapdy_8K_Gloss.jpg"
+    },
+    {
+      "averageColor": "#8180DB",
+      "bitDepth": 16,
+      "colorSpace": "Linear",
+      "contentLength": 218591917,
+      "maxIntensity": 218,
+      "mimeType": "image/x-exr",
+      "minIntensity": 44,
+      "name": "Normal",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "normal",
+      "uri": "ulfhfapdy_8K_Normal.exr"
+    },
+    {
+      "averageColor": "#8180DB",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 81632207,
+      "maxIntensity": 218,
+      "mimeType": "image/jpeg",
+      "minIntensity": 44,
+      "name": "Normal",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "normal",
+      "uri": "ulfhfapdy_8K_Normal.jpg"
+    },
+    {
+      "averageColor": "#ECECEC",
+      "bitDepth": 32,
+      "colorSpace": "Linear",
+      "contentLength": 156744536,
+      "maxIntensity": 245,
+      "mimeType": "image/x-exr",
+      "minIntensity": 220,
+      "name": "Roughness",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "roughness",
+      "uri": "ulfhfapdy_8K_Roughness.exr"
+    },
+    {
+      "averageColor": "#ECECEC",
+      "bitDepth": 8,
+      "colorSpace": "Linear",
+      "contentLength": 22158143,
+      "maxIntensity": 245,
+      "mimeType": "image/jpeg",
+      "minIntensity": 220,
+      "name": "Roughness",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "roughness",
+      "uri": "ulfhfapdy_8K_Roughness.jpg"
+    },
+    {
+      "averageColor": "#383838",
+      "bitDepth": 16,
+      "colorSpace": "sRGB",
+      "contentLength": 238413120,
+      "maxIntensity": 56,
+      "mimeType": "image/x-exr",
+      "minIntensity": 56,
+      "name": "Specular",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "specular",
+      "uri": "ulfhfapdy_8K_Specular.exr"
+    },
+    {
+      "averageColor": "#383838",
+      "bitDepth": 8,
+      "colorSpace": "sRGB",
+      "contentLength": 30085789,
+      "maxIntensity": 56,
+      "mimeType": "image/jpeg",
+      "minIntensity": 56,
+      "name": "Specular",
+      "physicalSize": "2x2",
+      "resolution": "8192x8192",
+      "type": "specular",
+      "uri": "ulfhfapdy_8K_Specular.jpg"
+    }
+  ],
+  "meta": [
+    {
+      "key": "scanArea",
+      "name": "Scan Area",
+      "value": "2x2 m"
+    },
+    {
+      "key": "height",
+      "name": "Height",
+      "value": "0.085 m"
+    },
+    {
+      "key": "tileable",
+      "name": "Tileable",
+      "value": true
+    },
+    {
+      "key": "tiling_directions",
+      "name": "Tiling Directions",
+      "value": [
+        "x",
+        "y"
+      ]
+    },
+    {
+      "key": "texelDensity",
+      "name": "Texel Density",
+      "value": "4096 px/m"
+    },
+    {
+      "key": "calibration",
+      "name": "Calibration",
+      "value": "GretagMacbeth ColorChecker Color Rendition Chart"
+    },
+    {
+      "key": "scanner",
+      "name": "Scanner",
+      "value": "MKX"
+    }
+  ],
+  "models": [],
+  "name": "Shoreline Beach Rocks",
+  "pack": {
+    "_id": "nordic-coastal-cliffs",
+    "name": "Nordic Coastal Cliffs"
+  },
+  "physicalSize": null,
+  "points": 2,
+  "previews": {
+    "images": [
+      {
+        "contentLength": 225579,
+        "resolution": "360x360",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "ulfhfapdy_Grid_360.png"
+      },
+      {
+        "contentLength": 301693,
+        "resolution": "420x420",
+        "tags": [
+          "thumb"
+        ],
+        "uri": "ulfhfapdy_Grid_420.png"
+      },
+      {
+        "contentLength": 844960,
+        "resolution": "720x720",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_Grid_720.png"
+      },
+      {
+        "contentLength": 1137395,
+        "resolution": "840x840",
+        "tags": [
+          "thumb",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_Grid_840.png"
+      },
+      {
+        "contentLength": 3056156,
+        "resolution": "1440x768",
+        "tags": [
+          "preview",
+          "clay"
+        ],
+        "uri": "ulfhfapdy_PopupClay_1440.png"
+      },
+      {
+        "contentLength": 5655855,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview",
+          "clay"
+        ],
+        "uri": "ulfhfapdy_PopupClay_1920.png"
+      },
+      {
+        "contentLength": 11935033,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "clay",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_PopupClay_2880.png"
+      },
+      {
+        "contentLength": 22395741,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "clay",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_PopupClay_3840.png"
+      },
+      {
+        "contentLength": 3196617,
+        "resolution": "1440x768",
+        "tags": [
+          "preview",
+          "tiled"
+        ],
+        "uri": "ulfhfapdy_PopupTiled_1440.png"
+      },
+      {
+        "contentLength": 5951867,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview",
+          "tiled"
+        ],
+        "uri": "ulfhfapdy_PopupTiled_1920.png"
+      },
+      {
+        "contentLength": 12596876,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "tiled",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_PopupTiled_2880.png"
+      },
+      {
+        "contentLength": 23121008,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "tiled",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_PopupTiled_3840.png"
+      },
+      {
+        "contentLength": 3146740,
+        "resolution": "1440x768",
+        "tags": [
+          "preview"
+        ],
+        "uri": "ulfhfapdy_Popup_1440.png"
+      },
+      {
+        "contentLength": 5854310,
+        "resolution": "1920x1080",
+        "tags": [
+          "preview"
+        ],
+        "uri": "ulfhfapdy_Popup_1920.png"
+      },
+      {
+        "contentLength": 12383446,
+        "resolution": "2880x1536",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_Popup_2880.png"
+      },
+      {
+        "contentLength": 22932337,
+        "resolution": "3840x2160",
+        "tags": [
+          "preview",
+          "retina"
+        ],
+        "uri": "ulfhfapdy_Popup_3840.png"
+      }
+    ],
+    "relativeSize": "1x1",
+    "scaleReferences": []
+  },
+  "process_date": "2024-04-17 01:23:29",
+  "properties": [],
+  "referencePreviews": {
+    "maps": [],
+    "models": []
+  },
+  "references": [],
+  "revised": false,
+  "revision": 0,
+  "semanticTags": {
+    "architectural_style": {},
+    "asset_type": "surface",
+    "color": [
+      "Brown"
+    ],
+    "contains": [
+      "rocks",
+      "stones",
+      "gravel",
+      "pebbles",
+      "cobbles"
+    ],
+    "country": "United Kingdom",
+    "descriptive": [
+      "sharp",
+      "rough",
+      "irregular",
+      "weathered",
+      "tidal",
+      "scattered"
+    ],
+    "environment": [
+      "ocean biome"
+    ],
+    "industry": [
+      "archviz",
+      "games",
+      "VFX"
+    ],
+    "interior_exterior": [
+      "exterior"
+    ],
+    "locations": {
+      "Europe": {
+        "Sweden": {}
+      }
+    },
+    "maxSize": 2,
+    "minSize": 2,
+    "name": "Shoreline Beach Rocks",
+    "region": "Europe",
+    "resolution": 8192,
+    "state": [
+      "old"
+    ],
+    "subject_matter": "nature",
+    "theme": [
+      "outdoors",
+      "ground",
+      "nature",
+      "beach",
+      "shore",
+      "coastal",
+      "shorelines",
+      "sea",
+      "ocean",
+      "Coastlines",
+      "devon",
+      "UK"
+    ]
+  },
+  "tags": [
+    "brown",
+    "gray",
+    "outdoors",
+    "ground",
+    "nature",
+    "beach",
+    "shore",
+    "coastal",
+    "shorelines",
+    "sea",
+    "ocean",
+    "coastlines",
+    "devon",
+    "uk",
+    "rocks",
+    "stones",
+    "gravel",
+    "pebbles",
+    "cobbles",
+    "sharp",
+    "rough",
+    "irregular",
+    "weathered",
+    "tidal",
+    "hovs"
+  ],
+  "texelDensity": 4096,
+  "texture_type": "basic",
+  "ue_plugin_archives": [
+    {
+      "contentLength": 308173548,
+      "gltfVersion": "2.0",
+      "tier": 0,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_0/ulfhfapdy_tier_0.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 96464615,
+      "gltfVersion": "2.0",
+      "tier": 1,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_1/ulfhfapdy_tier_1.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 24892430,
+      "gltfVersion": "2.0",
+      "tier": 2,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_2/ulfhfapdy_tier_2.zip",
+      "version": 1
+    },
+    {
+      "contentLength": 2416144,
+      "gltfVersion": "2.0",
+      "tier": 3,
+      "type": "gltf",
+      "uri": "ue_plugin_archives/tier_3/ulfhfapdy_tier_3.zip",
+      "version": 1
+    }
+  ],
+  "version": 2
+}
