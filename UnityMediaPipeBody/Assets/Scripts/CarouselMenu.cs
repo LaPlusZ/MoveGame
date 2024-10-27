@@ -1,13 +1,15 @@
+using System.Linq;
 using UnityEngine;
 
 public class SmoothCarouselMenu : MonoBehaviour
 {
     public Transform[] planes; // Array of planes (3 planes)
+    public GameObject[] ui;
     public float dragSensitivity = 0.005f; // Sensitivity of mouse drag
     public float smoothingFactor = 10f; // Smoothing factor for smooth scrolling
     public float scrollCooldown = 0.2f; // Time to wait after scroll input before snapping
 
-    public float scrollPosition = 2f; // Start at the middle plane (position 2)
+    public float scrollPosition = 1f; // Start at the left plane (position 1)
     private float targetPosition = 1f; // Target position to scroll toward
     private float scrollCooldownTimer;
 
@@ -53,6 +55,22 @@ public class SmoothCarouselMenu : MonoBehaviour
             if (scrollCooldownTimer <= 0)
             {
                 SnapToNearestPage();
+            }
+        }
+
+        for (int i = 1; i <= ui.Count(); i++)
+        {
+            float dist = Mathf.Abs(i - scrollPosition);
+            dist = Mathf.Clamp01(dist); //0, 1
+            dist = Mathf.Clamp01((1 - dist - 0.5f)*3); //For alpha
+            ui[i-1].GetComponent<CanvasGroup>().alpha = dist;
+            if (dist == 0)
+            {
+                ui[i-1].SetActive(false);
+            }
+            else
+            {
+                ui[i-1].SetActive(true);
             }
         }
     }

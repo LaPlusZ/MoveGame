@@ -14,12 +14,15 @@ public class GameIntro : MonoBehaviour
     public TMP_Text title;
     public Image background;
     private Transform camera;
+    public CanvasGroup gameUIParent;
 
     // Start is called before the first frame update
     async void  Start()
     {
         camera = Camera.main.transform;
         camera.rotation = quaternion.Euler(new Vector3(-90,0,0));
+        gameUIParent.alpha = 0;
+        gameUIParent.gameObject.SetActive(false);
 
         await WaitUntilSceneIsLoaded();
 
@@ -51,5 +54,7 @@ public class GameIntro : MonoBehaviour
         content.GetComponent<CanvasGroup>().DOFade(0, 1f).SetEase(Ease.InOutCubic);
         await camera.DORotate(Vector3.zero, 2f).SetEase(Ease.InOutCubic).AsyncWaitForCompletion();
         content.SetActive(false);
+        gameUIParent.gameObject.SetActive(true);
+        gameUIParent.DOFade(1, 1);
     }
 }

@@ -54,7 +54,7 @@ public class UIManager : MonoBehaviour
         {
             if (gameIndex == 2)
             {
-                FindObjectOfType<WallSpawner>().Stop();
+                FindObjectOfType<WallSpawner>(true).Stop();
             }
 
             float t = 1f; // Starting value
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
         {
             if (gameIndex == 2)
             {
-                FindObjectOfType<WallSpawner>().Continue();
+                FindObjectOfType<WallSpawner>(true).Continue();
             }
 
             float t = 0f; // Starting value

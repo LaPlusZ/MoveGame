@@ -48,6 +48,11 @@ public class GameController : MonoBehaviour
         if (gameManager != null)
         {
             gameManager.SetActive(true);
+
+            if (gameManager.GetComponent<WallSpawner>())
+            {
+                gameManager.GetComponent<WallSpawner>().spawnWall();
+            }
         }
         if (poseAngleCalculator != null)
         {

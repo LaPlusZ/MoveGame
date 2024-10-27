@@ -9,16 +9,27 @@ public class WallSpawner : MonoBehaviour
     public int timeSpacing = 5;
     public List<GameObject> walls;
     private bool stopped;
+    private float timeElapsed;
+    private int currentWall;
 
-    async void Start()
+    void Update()
     {
-        while (stopped == false) {
-            foreach (GameObject wall in walls) {
-                Instantiate(wall, transform.position, wall.transform.rotation);
+        timeElapsed += Time.deltaTime;
 
-                await Task.Delay(timeSpacing*1000);
-            }
+        if (timeElapsed > timeSpacing)
+        {
+            timeElapsed -= timeSpacing;
+
+            spawnWall();
         }
+    }
+
+    public void spawnWall()
+    {
+        GameObject wall = walls[currentWall];
+        Instantiate(wall, transform.position, wall.transform.rotation);
+
+        if (currentWall < walls.Count - 1) { currentWall += 1; } else { gameObject.SetActive(false); }
     }
 
     public void Stop()
