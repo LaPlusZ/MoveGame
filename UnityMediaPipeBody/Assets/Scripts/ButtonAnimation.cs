@@ -13,11 +13,14 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
     public float buttonZoomScale = 1.2f;
     public float buttonTwistScale = -4f;
     public bool isMenuButton;
+    public bool isSideMenuButton;
+    public int menuIndex;
     public Color menuColor;
     public CanvasGroup icon;
     public CanvasGroup menuContent;
     public bool pauseGame;
     public ButtonAnimation parentMenu;
+    public SideMenuManager sideMenuManager;
     public bool disableTwist;
     private RectTransform rectTransform;
     private Image image;
@@ -50,6 +53,11 @@ public class ButtonAnimation : MonoBehaviour, IPointerDownHandler, IPointerUpHan
                 parentMenu.CloseMenu();
             }
             FindAnyObjectByType<UIManager>().Pause();
+        }
+
+        if (isSideMenuButton)
+        {
+            sideMenuManager.open(menuIndex);
         }
     }
 
