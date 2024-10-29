@@ -8,6 +8,7 @@ using System.Threading;
 using UnityEngine;
 using System;
 using System.Net.Sockets;
+using Unity.VisualScripting;
 
 
 
@@ -308,6 +309,7 @@ public class PipeServer : MonoBehaviour
         Debug.Log("Waiting for connection...");
         server.WaitForConnection();  // Wait for the connection from Python
         Debug.Log("Connected via Named pipe.");
+        isConnected = true; // Set isConnected to true
 
         using (var br = new BinaryReader(server, Encoding.UTF8))
         {
@@ -351,17 +353,33 @@ public class PipeServer : MonoBehaviour
     }
 
     // Call this method on exit to clean up the connection properly
-    private void Cleanup()
+    public void Cleanup()
     {
         if (isConnected)
         {
             try
             {
+                // Close the BinaryReader and underlying stream, if any
                 br?.Close();
                 stream?.Close();
-                unixClient?.Shutdown(SocketShutdown.Both);
-                unixClient?.Close();
-                unixClient?.Dispose();
+
+                // Shutdown and close the Unix socket if on Unix
+                if (unixClient != null)
+                {
+
+                    unixClient.Shutdown(SocketShutdown.Both);
+                    unixClient.Close();
+                    unixClient.Dispose();
+                }
+
+                // Close the NamedPipeServerStream if on Windows
+                if (server != null)
+                {
+                    server.Disconnect();
+                    server.Close();
+                    server.Dispose();
+                }
+
                 isConnected = false;
                 Debug.Log("Disconnected and cleaned up.");
             }
@@ -372,6 +390,7 @@ public class PipeServer : MonoBehaviour
         }
     }
 
+    
     private void OnApplicationQuit()
     {
         Cleanup();
