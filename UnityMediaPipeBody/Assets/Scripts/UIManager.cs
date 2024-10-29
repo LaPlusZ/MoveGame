@@ -102,7 +102,14 @@ public class UIManager : MonoBehaviour
 
     public async void loadScene(string sceneName)
     {
+        PipeServer ps = FindObjectOfType<PipeServer>();
+
         await transition_close();
+        if (ps)
+        {
+            ps.Cleanup();
+        }
+        
         SceneManager.LoadScene(sceneName);
         Time.timeScale = 1;
     }

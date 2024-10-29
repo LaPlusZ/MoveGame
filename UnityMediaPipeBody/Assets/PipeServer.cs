@@ -353,7 +353,7 @@ public class PipeServer : MonoBehaviour
     }
 
     // Call this method on exit to clean up the connection properly
-    private void Cleanup()
+    public void Cleanup()
     {
         if (isConnected)
         {
