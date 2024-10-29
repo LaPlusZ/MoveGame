@@ -354,7 +354,7 @@ public class PipeServer : MonoBehaviour
     // Call this method on exit to clean up the connection properly
     private void Cleanup()
     {
-        if (!isConnected)
+        if (isConnected)
         {
             try
             {
@@ -365,6 +365,7 @@ public class PipeServer : MonoBehaviour
                 // Shutdown and close the Unix socket if on Unix
                 if (unixClient != null)
                 {
+
                     unixClient.Shutdown(SocketShutdown.Both);
                     unixClient.Close();
                     unixClient.Dispose();
