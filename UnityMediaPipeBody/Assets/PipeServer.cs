@@ -309,6 +309,7 @@ public class PipeServer : MonoBehaviour
         Debug.Log("Waiting for connection...");
         server.WaitForConnection();  // Wait for the connection from Python
         Debug.Log("Connected via Named pipe.");
+        isConnected = true; // Set isConnected to true
 
         using (var br = new BinaryReader(server, Encoding.UTF8))
         {
