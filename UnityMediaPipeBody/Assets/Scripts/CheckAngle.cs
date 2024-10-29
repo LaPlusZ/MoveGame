@@ -4,11 +4,11 @@ using UnityEngine;
 
 using static PipeServer;
 
-public class PoseAngleCalculator : MonoBehaviour
+public class AngleCheck : MonoBehaviour
 {
     public PipeServer pipeServer;  // Reference to the PipeServer instance
     private PipeServer.Body body;
-    public bool State= false;
+    public bool State = false;
     private void Start()
     {
         if (pipeServer == null)
@@ -27,11 +27,12 @@ public class PoseAngleCalculator : MonoBehaviour
 
     private void Update()
     {
-        
+        print(body);
         // Ensure the body is active before calculations
 
         if (body != null && body.active)
         {
+            Debug.Log("Start");  // Trigger the "Start" state
             // Retrieve landmark positions
             Vector3 leftHip = body.Position(Landmark.LEFT_HIP);
             Vector3 leftKnee = body.Position(Landmark.LEFT_KNEE);
@@ -49,28 +50,10 @@ public class PoseAngleCalculator : MonoBehaviour
 
             // Calculate the angles
             float leftHandAngle = CalculateAngle(leftShoulder, leftelbow, leftWrist);
-            float rightHandAngle = CalculateAngle(rightShoulder,rightelbow , rightWrist);
+            float rightHandAngle = CalculateAngle(rightShoulder, rightelbow, rightWrist);
             float leftLegAngle = CalculateAngle(leftHip, leftKnee, leftAnkle);
-            //Debug.Log(leftHandAngle);
+            Debug.Log(leftHandAngle);
             // Check for specific angles
-
-            if ((rightHandAngle >= 60 && rightHandAngle <= 100) && (leftHandAngle >= 60 && leftHandAngle <= 100))
-            {
-                if (leftLegAngle <= 100 && leftLegAngle >= 50)
-                {
-                    State = true;
-                    Debug.Log(State);
-                }
-                else
-                {
-                    State = false;
-                }
-
-            }
-            else
-            {
-                State = false;
-            }
 
         }
     }
