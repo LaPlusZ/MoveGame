@@ -201,7 +201,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8a7286d56576c4216a79119dafc481b0, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -265,7 +265,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &555818742106599834
@@ -942,11 +942,14 @@ MonoBehaviour:
   buttonZoomScale: 1.2
   buttonTwistScale: -4
   isMenuButton: 0
+  isSideMenuButton: 0
+  menuIndex: 0
   menuColor: {r: 0, g: 0, b: 0, a: 0}
   icon: {fileID: 0}
   menuContent: {fileID: 0}
   pauseGame: 0
   parentMenu: {fileID: 0}
+  sideMenuManager: {fileID: 0}
   disableTwist: 0
 --- !u!1 &1419842804199868731
 GameObject:
@@ -1306,7 +1309,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 00
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8a7286d56576c4216a79119dafc481b0, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -1370,7 +1373,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2415226006734005523
@@ -1965,11 +1968,14 @@ MonoBehaviour:
   buttonZoomScale: 1.5
   buttonTwistScale: -4
   isMenuButton: 0
+  isSideMenuButton: 0
+  menuIndex: 0
   menuColor: {r: 1, g: 1, b: 1, a: 0.46666667}
   icon: {fileID: 3983923062792694043}
   menuContent: {fileID: 0}
   pauseGame: 0
   parentMenu: {fileID: 0}
+  sideMenuManager: {fileID: 0}
   disableTwist: 0
 --- !u!1 &2974936966678591921
 GameObject:
@@ -2554,11 +2560,14 @@ MonoBehaviour:
   buttonZoomScale: 1.2
   buttonTwistScale: -4
   isMenuButton: 0
+  isSideMenuButton: 0
+  menuIndex: 0
   menuColor: {r: 0, g: 0, b: 0, a: 0}
   icon: {fileID: 0}
   menuContent: {fileID: 0}
   pauseGame: 0
   parentMenu: {fileID: 0}
+  sideMenuManager: {fileID: 0}
   disableTwist: 0
 --- !u!1 &3976878905617062382
 GameObject:
@@ -2903,11 +2912,14 @@ MonoBehaviour:
   buttonZoomScale: 1.2
   buttonTwistScale: -4
   isMenuButton: 0
+  isSideMenuButton: 0
+  menuIndex: 0
   menuColor: {r: 0, g: 0, b: 0, a: 0}
   icon: {fileID: 0}
   menuContent: {fileID: 0}
   pauseGame: 1
   parentMenu: {fileID: 9198387399006449146}
+  sideMenuManager: {fileID: 0}
   disableTwist: 0
 --- !u!1 &4390175696123349601
 GameObject:
@@ -4801,11 +4813,14 @@ MonoBehaviour:
   buttonZoomScale: 1.5
   buttonTwistScale: -4
   isMenuButton: 1
+  isSideMenuButton: 0
+  menuIndex: 0
   menuColor: {r: 1, g: 1, b: 1, a: 0.46666667}
   icon: {fileID: 4580973466650737520}
   menuContent: {fileID: 4271291201908332552}
   pauseGame: 1
   parentMenu: {fileID: 0}
+  sideMenuManager: {fileID: 0}
   disableTwist: 0
 --- !u!1 &7223594785705340198
 GameObject:
@@ -5381,11 +5396,14 @@ MonoBehaviour:
   buttonZoomScale: 1.5
   buttonTwistScale: -4
   isMenuButton: 0
+  isSideMenuButton: 0
+  menuIndex: 0
   menuColor: {r: 1, g: 1, b: 1, a: 0.46666667}
   icon: {fileID: 5273410171965834191}
   menuContent: {fileID: 0}
   pauseGame: 0
   parentMenu: {fileID: 0}
+  sideMenuManager: {fileID: 0}
   disableTwist: 0
 --- !u!1 &8484324596155022611
 GameObject:
