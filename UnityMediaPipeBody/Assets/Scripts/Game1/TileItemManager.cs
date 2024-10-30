@@ -38,9 +38,15 @@ public class TileItemManager : MonoBehaviour
 
     void SpawnCoin()
     {
-        for (int i = 1; i < 5; i++)
+        List<int> availableIndices = new List<int> { 0, 1, 2, 3, 4 };
+
+        for (int i = 0; i < 3; i++)
         {
-            Transform spawnPoint = transform.GetChild(i).transform;
+            int randomIndex = Random.Range(0, availableIndices.Count);
+            int coinSpawnIndex = availableIndices[randomIndex];
+            availableIndices.RemoveAt(randomIndex);
+
+            Transform spawnPoint = transform.GetChild(coinSpawnIndex).transform;
             Instantiate(CoinPrefabs, spawnPoint.position, Quaternion.identity, transform);
         }
     }

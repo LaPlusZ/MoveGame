@@ -1,23 +1,25 @@
 using System.Collections;
+using System.Collections.Generic; // Add this line
 using UnityEngine;
 using TMPro;
+using System;
 
 public class QTE : MonoBehaviour
 {
-    public GameObject qtePanel; // UI Panel for QTE
-    public TextMeshProUGUI qteInstructionText; // Instruction text for the pose to perform
-    public float qteDuration = 5.0f; // Time duration for the QTE event
-    public PipeServer pipeServer; // Reference to PipeServer instead of PoseDetect
+    public GameObject qtePanel;
+    public TextMeshProUGUI qteInstructionText;
+    public float qteDuration = 5.0f;
+    public PipeServer pipeServer;
     private bool qteActive = false;
     private bool qteSuccess = false;
 
-    // Pose requirements (you can expand this with different types of poses)
+    private Action<bool> onQTEComplete;  // Callback for QTE result
+
     private enum QTEPose { Squat, RaiseBothHands, RaiseLeftHands, RaiseRightHands, CrouchSwing }
     private QTEPose requiredPose;
 
     void Start()
     {
-        // Hide QTE panel at the start
         if (qtePanel != null)
         {
             qtePanel.SetActive(false);
@@ -32,43 +34,58 @@ public class QTE : MonoBehaviour
         }
     }
 
-    // Start a QTE event
-    public void StartQTE()
+    public void StartQTE(GameObject cat, Action<bool> callback)
     {
         if (qtePanel != null && qteInstructionText != null && pipeServer != null)
         {
             qtePanel.SetActive(true);
             qteActive = true;
             qteSuccess = false;
+            onQTEComplete = callback;  // Store callback
 
-            // Randomly select a pose
             requiredPose = GetRandomPose();
-
-            // Display the instruction to the player
             qteInstructionText.text = "Perform: " + requiredPose.ToString();
 
-            // Start the countdown for QTE
             StartCoroutine(QTECountdown());
         }
     }
 
-    // Coroutine to handle QTE timing
     IEnumerator QTECountdown()
     {
         yield return new WaitForSeconds(qteDuration);
 
         if (!qteSuccess)
         {
-            EndQTE(false); // QTE failed
+            EndQTE(false);
         }
     }
 
-    // Check if the player performs the correct pose
+    void EndQTE(bool success)
+    {
+        qteActive = false;
+        if (qtePanel != null)
+        {
+            qtePanel.SetActive(false);
+        }
+
+        qteSuccess = success;
+
+        // Capture the cat if successful
+        if (success)
+        {
+            CaptureCat(); // Capture logic can be called here
+        }
+
+        // Invoke callback to notify result
+        onQTEComplete?.Invoke(success);
+        onQTEComplete = null;  // Clear callback
+    }
+
+
     void CheckForPose()
     {
         if (pipeServer != null)
         {
-            // Example pose detection logic
             switch (requiredPose)
             {
                 case QTEPose.Squat:
@@ -114,31 +131,20 @@ public class QTE : MonoBehaviour
         }
     }
 
-    // End the QTE and hide the panel
-    void EndQTE(bool success)
+    void CaptureCat()
     {
-        qteActive = false;
-
-        if (qtePanel != null)
+        Cat catComponent = GetComponent<Cat>();
+        if (catComponent != null && InventoryManager.Instance != null)
         {
-            qtePanel.SetActive(false);
-        }
-
-        if (success)
-        {
-            Debug.Log("QTE Success!");
-        }
-        else
-        {
-            Debug.Log("QTE Failed!");
+            InventoryManager.Instance.CaptureCat(catComponent);
         }
     }
 
-    // Randomly choose a pose for the QTE
+
     QTEPose GetRandomPose()
     {
         QTEPose[] poses = { QTEPose.Squat, QTEPose.RaiseBothHands, QTEPose.CrouchSwing };
-        return poses[Random.Range(0, poses.Length)];
+        return poses[UnityEngine.Random.Range(0, poses.Length)];
     }
 
     bool IsSquatPose()
@@ -176,7 +182,6 @@ public class QTE : MonoBehaviour
         return rightHandHeight > headHeight;
     }
 
-    // Detect CrouchSwing pose
     bool IsCrouchSwingPose()
     {
         float kneeHeight = (pipeServer.body.Position(Landmark.LEFT_KNEE).y +
