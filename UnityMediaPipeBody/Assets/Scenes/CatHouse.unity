@@ -2362,6 +2362,7 @@ GameObject:
   - component: {fileID: 1081715973}
   - component: {fileID: 1081715972}
   - component: {fileID: 1081715971}
+  - component: {fileID: 1081715975}
   m_Layer: 0
   m_Name: floor
   m_TagString: Untagged
@@ -2456,6 +2457,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1081715975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081715970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a614070f643cf8349abacc1bb7898b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actions: {fileID: -944628639613478452, guid: e9284a5d0bf7d574f91d837df4eeb4c5, type: 3}
+  _speed: 5
+  _inverted: 0
+  minYAngle: -15
+  maxYAngle: 15
 --- !u!1 &1102114733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3183,6 +3201,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1378037234}
+  - component: {fileID: 1378037235}
   m_Layer: 0
   m_Name: BuildingSystem
   m_TagString: Untagged
@@ -3211,6 +3230,23 @@ Transform:
   - {fileID: 59344054}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1378037235
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378037233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a614070f643cf8349abacc1bb7898b0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _actions: {fileID: -944628639613478452, guid: e9284a5d0bf7d574f91d837df4eeb4c5, type: 3}
+  _speed: 5
+  _inverted: 0
+  minYAngle: -15
+  maxYAngle: 15
 --- !u!1 &1411372612
 GameObject:
   m_ObjectHideFlags: 0
