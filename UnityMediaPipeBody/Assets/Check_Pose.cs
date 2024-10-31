@@ -27,7 +27,7 @@ public class PoseAngleCalculator : MonoBehaviour
 
     private void Update()
     {
-        //Debug.Log("Start");  // Trigger the "Start" state
+        
         // Ensure the body is active before calculations
 
         if (body != null && body.active)
@@ -51,7 +51,7 @@ public class PoseAngleCalculator : MonoBehaviour
             float leftHandAngle = CalculateAngle(leftShoulder, leftelbow, leftWrist);
             float rightHandAngle = CalculateAngle(rightShoulder,rightelbow , rightWrist);
             float leftLegAngle = CalculateAngle(leftHip, leftKnee, leftAnkle);
-            //Debug.Log(leftLegAngle);
+            //Debug.Log(leftHandAngle);
             // Check for specific angles
 
             if ((rightHandAngle >= 60 && rightHandAngle <= 100) && (leftHandAngle >= 60 && leftHandAngle <= 100))
@@ -69,9 +69,9 @@ public class PoseAngleCalculator : MonoBehaviour
             }
             else
             {
-                State =false;
+                State = false;
             }
-            
+
         }
     }
 

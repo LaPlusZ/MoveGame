@@ -12,17 +12,21 @@ public class InventoryUI : MonoBehaviour
 
     bool isOpen;
 
-    // Start is called before the first frame update
     void Start()
     {
-        //inventory.Add(new InventoryItem("Cat", 1, null));
         foreach (Transform child in container)
         {
             Destroy(child.gameObject);
         }
 
-        foreach (InventoryItem item in inventory)
+        // captured cats from InventoryManager
+        List<Cat> capturedCats = InventoryManager.Instance.capturedCats;
+
+        // Populate the inventory with captured cats
+        foreach (Cat cat in capturedCats)
         {
+            // Assuming your InventoryItem can be constructed from a Cat or has a way to create an InventoryItem from a Cat
+            InventoryItem item = new InventoryItem(cat.CatName, 1, cat.CatImage); // Modify to fit your data structure
             GameObject itemUI = Instantiate(itemUIPrefab, container);
             itemUI.GetComponent<ItemUI>().SetItemDetails(item);
         }

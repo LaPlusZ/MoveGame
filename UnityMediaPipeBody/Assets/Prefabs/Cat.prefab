@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2917094274351791002}
   - component: {fileID: -3593236777065222074}
   - component: {fileID: 7818195016180943904}
+  - component: {fileID: -6233913253987524703}
   m_Layer: 0
   m_Name: Cat
   m_TagString: Untagged
@@ -31,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -147,3 +148,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   qteSystem: {fileID: 0}
+--- !u!114 &-6233913253987524703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7976169133486975042}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31099e79110be74881cf9886a54eba9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id: 0
+  catRarity: 
+  catName: 
+  catImage: {fileID: 0}

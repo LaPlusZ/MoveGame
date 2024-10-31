@@ -67,7 +67,7 @@ class BodyThreadBLE(threading.Thread):
             if self.pipe is not None and global_vars.heart_rate is not None:
                 try:
                     # Send the heart rate data to the Unity pipe
-                    heart_rate_data = f"Heart Rate: {global_vars.heart_rate} bpm"
+                    heart_rate_data = f"Heart Rate: {global_vars.heart_rate}"
                     s = heart_rate_data.encode('utf-8')  # Encode the heart rate message
                     self.pipe.write(struct.pack('I', len(s)) + s)  # Pack the message with its length
                     self.pipe.seek(0)  # Reset the pipe's position to the beginning
@@ -88,12 +88,12 @@ class BodyThreadBLE(threading.Thread):
             self.loop.stop()
 
 # Main logic that starts the body thread and runs for a given period
-# if __name__ == "__main__":
-#     body_thread = BodyThreadBLE()
-#     body_thread.start()
+if __name__ == "__main__":
+    body_thread = BodyThreadBLE()
+    body_thread.start()
 
-#     # Run for 30 seconds for demo purposes
-#     time.sleep(30)
+    # Run for 30 seconds for demo purposes
+    time.sleep(120)
 
-#     global_vars.KILL_THREADS = True  # Stop the thread after the demo period
-#     body_thread.join()  # Wait for the thread to terminate
+    global_vars.KILL_THREADS = True  # Stop the thread after the demo period
+    body_thread.join()  # Wait for the thread to terminate

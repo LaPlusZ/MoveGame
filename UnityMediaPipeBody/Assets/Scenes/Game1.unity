@@ -613,7 +613,7 @@ GameObject:
   m_Component:
   - component: {fileID: 438556836}
   - component: {fileID: 438556835}
-  - component: {fileID: 438556837}
+  - component: {fileID: 438556839}
   - component: {fileID: 438556838}
   m_Layer: 0
   m_Name: GameManager
@@ -641,7 +641,7 @@ MonoBehaviour:
   numberOfGround: 30
   resetPositionZ: -35
   speedMultiplier: 1.5
-  poseDetect: {fileID: 438556837}
+  poseDetect: {fileID: 438556839}
   idleSpeed: 0
   walkSpeed: 3
   runSpeed: 8
@@ -695,6 +695,22 @@ MonoBehaviour:
   qteInstructionText: {fileID: 508754399}
   qteDuration: 20
   pipeServer: {fileID: 361595595}
+--- !u!114 &438556839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 438556834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45a66756c3b4c424f8447ea4412d2481, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pipeServer: {fileID: 361595595}
+  timeBetweenChecks: 0.2
+  smoothingFactor: 0.8
+  legMovementThreshold: 0.1
 --- !u!1001 &508754396
 PrefabInstance:
   m_ObjectHideFlags: 0

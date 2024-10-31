@@ -167,27 +167,23 @@ public class GameManager : MonoBehaviour
         currentSpeed = Mathf.Lerp(currentSpeed, targetSpeed, speedChangeSmoothness * Time.deltaTime);
     }
 
-    // Set a random interval between 5 and 10 minutes for cat spawning
     void SetRandomCatSpawnTime()
     {
         catSpawnInterval = Random.Range(5, 10);
         nextCatSpawnTime = elapsedTime + catSpawnInterval * 60f;
     }
 
-    // Check if it's time to spawn a cat
     void CheckCatSpawn()
     {
         if (elapsedTime >= nextCatSpawnTime)
         {
-            SpawnCatOnFifthTile(); // Spawn a cat on the 5th tile after the current tile
-            SetRandomCatSpawnTime(); // Set next random spawn time
+            SpawnCatOnFifthTile();
+            SetRandomCatSpawnTime();
         }
     }
 
-    // Spawn the cat on the 5th tile after the current one
     void SpawnCatOnFifthTile()
     {
-        // Calculate the index of the 5th tile after the current one, looping around if needed
         int targetTileIndex = (currentTileIndex + 5) % grounds.Count;
 
         TileItemManager targetTileItemManager = grounds[targetTileIndex].GetComponent<TileItemManager>();
