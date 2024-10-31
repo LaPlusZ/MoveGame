@@ -15,10 +15,12 @@ public class Rotate3DObject : MonoBehaviour
 
     protected InputAction leftClickPressedInputAction { get; set; }
     protected InputAction mouseLookInputAction { get; set; }
+    private InputAction toggleRotateModeAction;
     #endregion
 
     #region Variables
     private bool _rotateAllowed;
+    private bool _rotateModeEnabled;
     private Camera _camera;
     [SerializeField] private float _speed = 100f;
     [SerializeField] private bool _inverted;
@@ -34,7 +36,7 @@ public class Rotate3DObject : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.None; // Start with unlocked cursor for UI interactions
         _camera = Camera.main;
         currentYRotation = transform.eulerAngles.y;
     }
@@ -50,6 +52,11 @@ public class Rotate3DObject : MonoBehaviour
         }
 
         mouseLookInputAction = actions.FindAction("Mouse Look");
+
+        toggleRotateModeAction = new InputAction("ToggleRotateMode", binding: "<Keyboard>/t");
+        toggleRotateModeAction.performed += ToggleRotateMode;
+        toggleRotateModeAction.Enable();
+
         actions.Enable();
     }
 
@@ -63,15 +70,22 @@ public class Rotate3DObject : MonoBehaviour
 
     protected virtual Vector2 GetMouseLookInput()
     {
-        if (mouseLookInputAction != null)
-            return mouseLookInputAction.ReadValue<Vector2>();
+        return mouseLookInputAction != null ? mouseLookInputAction.ReadValue<Vector2>() : Vector2.zero;
+    }
 
-        return Vector2.zero;
+    private void ToggleRotateMode(InputAction.CallbackContext context)
+    {
+        _rotateModeEnabled = !_rotateModeEnabled;
+
+        // Toggle cursor lock state based on rotate mode
+        Cursor.lockState = _rotateModeEnabled ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !_rotateModeEnabled; // Show the cursor when not in rotate mode
     }
 
     private void Update()
     {
-        if (!_rotateAllowed)
+        // Only allow rotation if rotate mode is enabled and the cursor is locked
+        if (!_rotateAllowed || !_rotateModeEnabled || Cursor.lockState != CursorLockMode.Locked)
             return;
 
         Vector2 mouseDelta = GetMouseLookInput();
@@ -85,5 +99,10 @@ public class Rotate3DObject : MonoBehaviour
 
         // Apply the clamped rotation to the transform
         transform.rotation = Quaternion.Euler(0, currentYRotation, 0);
+    }
+
+    private void OnDestroy()
+    {
+        toggleRotateModeAction.performed -= ToggleRotateMode;
     }
 }
