@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class PreviewSystem : MonoBehaviour
@@ -28,48 +27,56 @@ public class PreviewSystem : MonoBehaviour
         previewObject = Instantiate(prefab);
         PreparePreview(previewObject);
         PrepareCursor(size);
+
         cellIndicator.SetActive(true);
+        RotatePreview(0); // Reset rotation angle to 0 for new object
     }
 
     private void PrepareCursor(Vector2Int size)
     {
-        if (size.x > 0 || size.y > 0) 
+        if (size.x > 0 || size.y > 0)
         {
             cellIndicator.transform.localScale = new Vector3(size.x, 1, size.y);
             cellIndicatorRenderer.material.mainTextureScale = size;
+            cellIndicator.transform.rotation = Quaternion.identity; // Reset rotation
         }
     }
 
     private void PreparePreview(GameObject previewObject)
     {
         Renderer[] renderers = previewObject.GetComponentsInChildren<Renderer>();
-        foreach (Renderer renderer in renderers) 
+        foreach (Renderer renderer in renderers)
         {
             Material[] materials = renderer.materials;
             for (int i = 0; i < materials.Length; i++)
             {
                 materials[i] = previewMaterialInstance;
             }
-            renderer.materials = materials;  
+            renderer.materials = materials;
         }
     }
 
     public void StopShowingPreview()
     {
         cellIndicator.SetActive(false);
+        cellIndicator.transform.localScale = Vector3.one; // Reset scale
+        cellIndicator.transform.rotation = Quaternion.identity; // Reset rotation
         if (previewObject != null)
+        {
             Destroy(previewObject);
+            previewObject = null;
+        }
     }
 
-    public void UpadatePosition(Vector3 position, bool validity)
+    public void UpdatePosition(Vector3 position, bool validity, float angle)
     {
         if (previewObject != null)
         {
-            MovePreview(position);
+            MovePreview(position, angle);
             ApplyFeedbackToPreview(validity);
         }
-        
-        MoveCursor(position); 
+
+        MoveCursor(position, angle);
         ApplyFeedbackToCursor(validity);
     }
 
@@ -87,24 +94,33 @@ public class PreviewSystem : MonoBehaviour
         cellIndicatorRenderer.material.color = c;
     }
 
-    private void MoveCursor(Vector3 position)
+    private void MoveCursor(Vector3 position, float angle)
     {
-        cellIndicator.transform.position = position;
+        cellIndicator.transform.position = CalculatePositionWithPivot(position, angle, previewYOffset);
     }
 
-    private void MovePreview(Vector3 position)
+    private void MovePreview(Vector3 position, float angle)
     {
-        previewObject.transform.position = new Vector3(position.x, position.y + previewYOffset, position.z);
+        previewObject.transform.position = CalculatePositionWithPivot(position, angle, previewYOffset);
     }
 
-
+    private Vector3 CalculatePositionWithPivot(Vector3 position, float angle, float yOffset = 0)
+    {
+        if (angle == 90)
+            return new Vector3(position.x, position.y + yOffset, position.z + 1);
+        else if (angle == 180)
+            return new Vector3(position.x + 1, position.y + yOffset, position.z + 1);
+        else if (angle == 270)
+            return new Vector3(position.x + 1, position.y + yOffset, position.z);
+        else
+            return new Vector3(position.x, position.y + yOffset, position.z);
+    }
 
     internal void StartShowingRemovePreview()
     {
         cellIndicator.SetActive(true);
         PrepareCursor(Vector2Int.one);
         ApplyFeedbackToCursor(false);
-
     }
 
     public void RotatePreview(float angle)

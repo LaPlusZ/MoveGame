@@ -32,6 +32,7 @@ public class PlacementState : IBuildingState
         selectedObjectIndex = database.objectsData.FindIndex(data => data.ID == ID);
         if (selectedObjectIndex > -1)
         {
+            rotationAngle = 0f;
             previewSystem.StartShowingPlacementPreview(
                 database.objectsData[selectedObjectIndex].Prefab,
                 database.objectsData[selectedObjectIndex].Size);
@@ -61,15 +62,15 @@ public class PlacementState : IBuildingState
 
         // Update GridData with the rotated size
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
-        selectedData.AddObjectAt(gridPosition, rotatedSize, database.objectsData[selectedObjectIndex].ID, index);
+        selectedData.AddObjectAt(gridPosition, database.objectsData[selectedObjectIndex].Size, database.objectsData[selectedObjectIndex].ID, index, rotationAngle);
         
-        previewSystem.UpadatePosition(grid.CellToWorld(gridPosition), false);
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false, rotationAngle);
     }
 
     private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex, Vector2Int rotatedSize)
     {
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
-        return selectedData.CanPlaceObjectAt(gridPosition, rotatedSize);
+        return selectedData.CanPlaceObjectAt(gridPosition, rotatedSize, rotationAngle);
     }
 
     private Vector2Int GetRotatedSize(Vector2Int originalSize, float angle)
@@ -82,7 +83,7 @@ public class PlacementState : IBuildingState
     {
         Vector2Int rotatedSize = GetRotatedSize(database.objectsData[selectedObjectIndex].Size, rotationAngle);
         bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex, rotatedSize);
-        previewSystem.UpadatePosition(grid.CellToWorld(gridPosition), placementValidity);
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity, rotationAngle);
     }
 
     public void SetRotation(float angle)

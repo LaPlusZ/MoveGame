@@ -10,8 +10,16 @@ public class ObjectPlacer : MonoBehaviour
 
     public int PlaceObject(GameObject prefab, Vector3 position, Quaternion rotation)
     {
-        GameObject newObject = Instantiate(prefab, position, rotation);
-        newObject.transform.position = position;
+        //angle from Quaternion "Rotation y axis"
+        float angle = rotation.eulerAngles.y;
+
+        //Rotation position from angle base on pivot left bottom
+        Vector3 newPosition = CalculatePositionWithPivot(position, angle);
+
+        //Modify position base on pivot
+        GameObject newObject = Instantiate(prefab, newPosition, rotation);
+        newObject.transform.position = newPosition;
+
         placedGameObject.Add(newObject);
         return placedGameObject.Count - 1;
     }
@@ -23,5 +31,16 @@ public class ObjectPlacer : MonoBehaviour
         Destroy(placedGameObject[gameObjectIndex]);
         placedGameObject[gameObjectIndex] = null;
      
+    }
+    private Vector3 CalculatePositionWithPivot(Vector3 position, float angle, float yOffset = 0)
+    {
+        if (angle == 90)
+            return new Vector3(position.x, position.y + yOffset, position.z + 1);
+        else if (angle == 180)
+            return new Vector3(position.x + 1, position.y + yOffset, position.z + 1);
+        else if (angle == 270)
+            return new Vector3(position.x + 1, position.y + yOffset, position.z);
+        else
+            return new Vector3(position.x, position.y + yOffset, position.z);
     }
 }
