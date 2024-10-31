@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
     public static GameManager instance; // Singleton instance
 
     [Header("Ground Management")]
-    public GameObject groundPrefabs;
+    public List<GameObject> groundPrefabs;
+    public int spacingOffset = 0;
     public int numberOfGround = 5;
     public float resetPositionZ = -30f;
     public float speedMultiplier = 1.5f;
@@ -59,10 +60,10 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Renderer renderer = groundPrefabs.GetComponentInChildren<Renderer>();
+        Renderer renderer = groundPrefabs[0].GetComponentInChildren<Renderer>();
         if (renderer != null)
         {
-            groundWidth = renderer.bounds.size.z;
+            groundWidth = renderer.bounds.size.z - spacingOffset;
         }
 
         for (int i = 0; i < numberOfGround; i++)
@@ -122,7 +123,7 @@ public class GameManager : MonoBehaviour
 
     GameObject SpawnGround(float zPosition)
     {
-        GameObject newGround = Instantiate(groundPrefabs, new Vector3(0, 0, zPosition), Quaternion.identity);
+        GameObject newGround = Instantiate(groundPrefabs[Random.Range(0, groundPrefabs.Count)], new Vector3(0, 0, zPosition), Quaternion.identity);
         grounds.Add(newGround);
         return newGround;
     }
