@@ -5,46 +5,71 @@ using UnityEngine;
 
 public class GridData
 {
-    Dictionary<Vector3Int, PlacementData> placedObjects = new();
+    private Dictionary<Vector3Int, PlacementData> placedObjects = new();
 
-    public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex)
+    public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex, float angle)
     {
-        List<Vector3Int> positionToOccupy = CalculatePositions(gridPosition, objectSize);
-        PlacementData data = new PlacementData(positionToOccupy, ID, placedObjectIndex);
-        foreach (var pos in positionToOccupy) 
+        List<Vector3Int> positionsToOccupy = CalculatePositions(gridPosition, objectSize, angle);
+        PlacementData data = new PlacementData(positionsToOccupy, ID, placedObjectIndex);
+
+        foreach (var pos in positionsToOccupy)
         {
             if (placedObjects.ContainsKey(pos))
             {
-                throw new Exception($"Dictionary already contains this cell posiotion {pos}");
+                throw new Exception($"Dictionary already contains this cell position {pos}");
             }
             placedObjects[pos] = data;
         }
     }
 
-    private List<Vector3Int> CalculatePositions(Vector3Int gridPosition, Vector2Int objectSize)
+    private List<Vector3Int> CalculatePositions(Vector3Int gridPosition, Vector2Int objectSize, float angle)
     {
-        List<Vector3Int> returnVal = new();
+        List<Vector3Int> occupiedPositions = new();
+
+        // Handle 1x1 object without rotation adjustments
+        if (objectSize == Vector2Int.one)
+        {
+            occupiedPositions.Add(gridPosition);
+            return occupiedPositions;
+        }
+
         for (int x = 0; x < objectSize.x; x++)
         {
             for (int y = 0; y < objectSize.y; y++)
             {
-                returnVal.Add(gridPosition + new Vector3Int(x,0,y) );
+                Vector3Int offset = angle switch
+                {
+                    90 => new Vector3Int(y, 0, objectSize.x - 2 - x),       // Rotate 90 degrees clockwise
+                    180 => new Vector3Int(objectSize.x - 2 - x, 0, objectSize.y - 2 - y), // Rotate 180 degrees
+                    270 => new Vector3Int(objectSize.y - 2 - y, 0, x),      // Rotate 270 degrees clockwise
+                    _ => new Vector3Int(x, 0, y)                            // Default (0 degrees)
+                };
+
+                Vector3Int finalPosition = gridPosition + offset;
+
+                occupiedPositions.Add(finalPosition);
             }
         }
-        return returnVal;
+
+        return occupiedPositions;
     }
 
-    public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize)
+    public bool CanPlaceObjectAt(Vector3Int gridPosition, Vector2Int objectSize, float angle)
     {
-        List<Vector3Int> postionToOccupy = CalculatePositions(gridPosition, objectSize);
-        foreach (var pos in postionToOccupy)
+        List<Vector3Int> positionsToOccupy = CalculatePositions(gridPosition, objectSize, angle);
+        foreach (var pos in positionsToOccupy)
         {
             if (placedObjects.ContainsKey(pos))
             {
-                return false;                
+                return false;
             }
         }
         return true;
+    }
+
+    public bool ObjectExistsAt(Vector3Int gridPosition)
+    {
+        return placedObjects.ContainsKey(gridPosition);
     }
 
     internal int GetRepresentationIndex(Vector3Int gridPosition)
@@ -55,6 +80,8 @@ public class GridData
 
     internal void RemoveObjectAt(Vector3Int gridPosition)
     {
+        if (!placedObjects.ContainsKey(gridPosition)) return;
+
         foreach (var pos in placedObjects[gridPosition].occupiedPositions)
         {
             placedObjects.Remove(pos);

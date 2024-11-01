@@ -95,10 +95,10 @@ public class PlacementSystem : MonoBehaviour
             lastDetectedPosition = gridPosition;
         }
 
-        /*if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             RotatePreview(90); // Clockwise
-        }*/
+        }
 
     }
 

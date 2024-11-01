@@ -35,11 +35,11 @@ public class RemovingState : IBuildingState
     public void OnAction(Vector3Int gridPosition)
     {
         GridData selectedData = null;
-        if (furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
+        if (furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one, 0) == false)
         {
             selectedData = furnitureData;
         }
-        else if (floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one) == false)
+        else if (floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one, 0) == false)
         {
             selectedData = floorData;
         }
@@ -56,18 +56,18 @@ public class RemovingState : IBuildingState
             objectPlacer.RemoveObjectAt(gameObjectIndex);
         }
         Vector3 cellPosition = grid.CellToWorld(gridPosition);
-        previewSystem.UpadatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition));
+        previewSystem.UpdatePosition(cellPosition, CheckIfSelectionIsValid(gridPosition), 0);
     }
 
     private bool CheckIfSelectionIsValid(Vector3Int gridPosition)
     {
-        return !(furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one) && 
-            floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one));
+        return !(furnitureData.CanPlaceObjectAt(gridPosition, Vector2Int.one, 0) && 
+            floorData.CanPlaceObjectAt(gridPosition, Vector2Int.one, 0));
     }
 
     public void UpdateState(Vector3Int gridPosition)
     {
         bool validity = CheckIfSelectionIsValid(gridPosition);
-        previewSystem.UpadatePosition(grid.CellToWorld(gridPosition), validity);    
+        previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), validity, 0);    
     }
 }
