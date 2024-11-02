@@ -24,6 +24,7 @@ public class PipeServer : MonoBehaviour
     public GameObject headPrefab;
     public bool anchoredBody = false;
     public bool enableHead = true;
+    public bool enableLines = true;
     public float multiplier = 10f;
     public float landmarkScale = 1f;
     public float maxSpeed = 50f;
@@ -92,9 +93,13 @@ public class PipeServer : MonoBehaviour
                     instances[i].transform.localScale = Vector3.one * 0f;
                 }
             }
-            for (int i = 0; i < lines.Length; ++i)
+
+            if (linePrefab)
             {
-                lines[i] = Instantiate(linePrefab).GetComponent<LineRenderer>();
+                for (int i = 0; i < lines.Length; ++i)
+                {
+                    lines[i] = Instantiate(linePrefab).GetComponent<LineRenderer>();
+                }
             }
 
             if (headPrefab)
@@ -202,7 +207,7 @@ public class PipeServer : MonoBehaviour
     {
         System.Globalization.CultureInfo.DefaultThreadCurrentCulture = System.Globalization.CultureInfo.InvariantCulture;
 
-        body = new Body(parent,landmarkPrefab,linePrefab,landmarkScale,enableHead?headPrefab:null);
+        body = new Body(parent,landmarkPrefab,enableLines?linePrefab:null,landmarkScale,enableHead?headPrefab:null);
 
         Thread t = new Thread(new ThreadStart(Run));
         t.Start();
@@ -240,7 +245,7 @@ public class PipeServer : MonoBehaviour
                 b.localPositionTargets[i] + b.calibrationOffset, 
                 Time.deltaTime * maxSpeed);
         }
-        b.UpdateLines();
+        if (enableLines) {b.UpdateLines();}
 
         b.virtualHeadPosition = (b.Position(Landmark.RIGHT_EAR) + b.Position(Landmark.LEFT_EAR)) / 2f;
 
