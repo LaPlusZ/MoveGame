@@ -230,7 +230,7 @@ public class PipeServer : MonoBehaviour
             b.Calibrate();
 
             if(FindObjectOfType<CameraController>())
-                FindObjectOfType<CameraController>().Calibrate(b.instances[(int)Landmark.NOSE].transform);
+                FindObjectOfType<CameraController>().Calibrate();
         }
 
         for (int i = 0; i < LANDMARK_COUNT; ++i)

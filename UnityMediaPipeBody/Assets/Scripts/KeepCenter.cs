@@ -48,6 +48,8 @@ public class KeepCenter : MonoBehaviour
         float deltaY = (stickToFloor == false) ? 0 - Ycenter : 0 - Ycenter + floorHeight;
         float deltaZ = 0 - Zcenter;
 
+        centerPos = new Vector3(Xcenter, (stickToFloor == false) ? 0 - Ycenter : 0 - Ycenter + floorHeight, Zcenter);
+
         obj.transform.position = Vector3.Scale(new Vector3(deltaX, deltaY, deltaZ) + obj.transform.position, multiplier);
 
         childX.Clear();

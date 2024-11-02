@@ -33,7 +33,7 @@ public class TileItemManager : MonoBehaviour
         Transform spawnPoint = transform.GetChild(obstacleSpawnIndex).transform;
 
         // Spawn obstacles
-        Instantiate(ObstaclesPrefabs, spawnPoint.position, Quaternion.identity, transform);
+        Instantiate(ObstaclesPrefabs, spawnPoint.position, ObstaclesPrefabs.transform.rotation, transform);
     }
 
     void SpawnCoin()
@@ -47,7 +47,7 @@ public class TileItemManager : MonoBehaviour
             availableIndices.RemoveAt(randomIndex);
 
             Transform spawnPoint = transform.GetChild(coinSpawnIndex).transform;
-            Instantiate(CoinPrefabs, spawnPoint.position, Quaternion.identity, transform);
+            Instantiate(CoinPrefabs, spawnPoint.position, CoinPrefabs.transform.rotation, transform);
         }
     }
 
@@ -74,7 +74,7 @@ public class TileItemManager : MonoBehaviour
                 // Random spawn point
                 int catSpawnIndex = Random.Range(3, 5);
                 Transform catSpawnPoint = transform.GetChild(catSpawnIndex).transform;
-                Instantiate(Cats[i].Cats[catIndex], catSpawnPoint.position, Quaternion.identity, transform);
+                Instantiate(Cats[i].Cats[catIndex], catSpawnPoint.position, Cats[i].Cats[catIndex].transform.rotation, transform);
                 return;
             }
         }

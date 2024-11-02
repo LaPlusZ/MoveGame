@@ -8,7 +8,7 @@ public class CatPrefabs : MonoBehaviour
 
     private void Start()
     {
-        qteSystem = GameObject.FindObjectOfType<QTE>();
+        qteSystem = GameObject.FindObjectOfType<QTE>(true);
     }
 
     void OnTriggerEnter(Collider other)

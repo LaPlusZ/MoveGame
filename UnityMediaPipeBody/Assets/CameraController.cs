@@ -7,11 +7,15 @@ using Random = UnityEngine.Random;
 
 public class CameraController : MonoBehaviour
 {
-    [Header("LookAt Settings")]
-    [SerializeField]
-    float positionInterpolation;
-    [SerializeField]
-    float rotationInterpolation;
+    [Header("Follow")]
+    [SerializeField] bool followTarget;
+    [SerializeField] Vector3 offset;
+    [SerializeField] bool lookAt;
+    [SerializeField] Vector3 lookAtOffset;
+
+    [Header("Non-follow Settings")]
+    [SerializeField]float positionInterpolation;
+    [SerializeField]float rotationInterpolation;
 
     Vector3 focus;
     Vector3 orgPos;
@@ -20,7 +24,6 @@ public class CameraController : MonoBehaviour
     [Header("Handheld Effect Settings")]
     public float shakeIntensity = 0.1f; // Intensity of the shake
     public float shakeFrequency = 20f; // Frequency of the shake
-    private float shakeTimer; // Timer to control shake duration
     private float timeCounter;
 
     private void Start()
@@ -29,7 +32,7 @@ public class CameraController : MonoBehaviour
         orgRot = transform.rotation;
     }
 
-    public void Calibrate(Transform idk)
+    public void Calibrate()
     {
         this.focus = FindObjectOfType<KeepCenter>().centerPos;
         transform.position = Vector3.Lerp(orgPos, focus, positionInterpolation);
@@ -38,6 +41,18 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (FindObjectOfType<KeepCenter>())
+        {
+            this.focus = FindObjectOfType<KeepCenter>().centerPos;
+        }
+        
+        if (followTarget) 
+        {
+            transform.position = Vector3.Lerp(transform.position,  focus + offset, Time.deltaTime*2.5f);
+            if (!lookAt) {return;} 
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation((focus+lookAtOffset-transform.position).normalized), Time.deltaTime * 1f);
+            return;
+        }
         Vector3 t = Vector3.Lerp(orgPos, focus, positionInterpolation);
         Vector3 lookAtPos = (positionInterpolation != 0f) ? Vector3.Lerp(transform.position,  t, Time.deltaTime*2.5f) : orgPos;
 

@@ -20,12 +20,14 @@ public class GameController : MonoBehaviour
     private bool Timer = false;
 
     [Header("--- Timer ---")]
+    public bool overwriteTimer;
+    public int durationSecond;
+    public bool minSec;
     public TextMeshProUGUI secondText;
     public TextMeshProUGUI milisecondText;
 
     [Header("--- Game 3 (Yoga) ---")]
     public PoseAngleCalculator poseAngleCalculator;
-    public int durationSecond;
     public List<GameObject> poseHologram;
     public int currentPose = -1;
     private int poseLeft;
@@ -42,6 +44,11 @@ public class GameController : MonoBehaviour
         timeText.gameObject.SetActive(false);
         rt = timeText.GetComponent<RectTransform>();
 
+        if (gameManager != null && gameManager.GetComponent<GameManager>())
+        {
+            gameManager.GetComponent<GameManager>().SetUp();
+        }
+
         await WaitUntilSceneIsLoaded();
         await CountDown(3, "Start!");
 
@@ -53,6 +60,15 @@ public class GameController : MonoBehaviour
             {
                 gameManager.GetComponent<WallSpawner>().spawnWall();
             }
+            if (gameManager != null && gameManager.GetComponent<GameManager>())
+            {
+                second = durationSecond;
+                milisecond = 0;
+                Timer = true;
+                secondText.gameObject.SetActive(true);
+                milisecondText.gameObject.SetActive(true);
+            }
+            
         }
         if (poseAngleCalculator != null)
         {
@@ -182,6 +198,39 @@ public class GameController : MonoBehaviour
                 milisecondText.alpha = 2-idleTimeElapsed;
             }
         }
+        else if (overwriteTimer && Timer && minSec)
+        {
+            if (milisecond > 0)
+            {
+                milisecond -= Time.deltaTime;
+                if (milisecond <= 0 && second > 0)
+                {
+                    milisecond = 60+milisecond;
+                    second -= 1;
+                }
+                else if (milisecond <= 0 && second <= 0)
+                {
+                    milisecond = 0;
+                    second = 0;
+
+                    EndGame();
+                }
+            }
+            else if (milisecond <= 0 && second > 0)
+            {
+                milisecond = 60+milisecond;
+                second -= 1;
+            }
+            else
+            {
+                milisecond = 0;
+                second = 0;
+
+                EndGame();
+            }
+            secondText.text = second.ToString("D2");
+            milisecondText.text = Mathf.FloorToInt(milisecond).ToString("D2");
+        }
     }
 
     async void nextPose()
@@ -192,9 +241,7 @@ public class GameController : MonoBehaviour
 
         if (poseLeft == 0) //Game end
         {
-            UnityEngine.Debug.Log("No pose left. Well done!");
-            await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
-            await CountDown(0, "Fantastic!");
+            EndGame();
             return;
         }
         else
@@ -222,5 +269,21 @@ public class GameController : MonoBehaviour
 
         UnityEngine.Debug.Log("Changed to pose " + currentPose);
         stopCount = false;
+    }
+
+    async void EndGame()
+    {
+        UnityEngine.Debug.Log("No pose left. Well done!");
+        await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
+
+        string[] words = {
+            "Fantastic!", "Amazing!", "Well done!", "Excellent!", "Bravo!", 
+            "Incredible!", "Superb!", "Outstanding!", "Awesome!", "Marvelous!",
+            "Terrific!", "Brilliant!", "Stellar!", "Impressive!", "Magnificent!",
+            "Spectacular!", "Splendid!", "Remarkable!", "Fabulous!", "Sensational!"
+        };
+
+        int rand = Random.Range(0, words.Length);
+        await CountDown(0, words[rand]);
     }
 }

@@ -60,12 +60,17 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        
+    }
+
+    public void SetUp()
+    {
         Renderer renderer = groundPrefabs[0].GetComponentInChildren<Renderer>();
         if (renderer != null)
         {
             groundWidth = renderer.bounds.size.z - spacingOffset;
         }
-
+        
         for (int i = 0; i < numberOfGround; i++)
         {
             GameObject newGround = SpawnGround(i * groundWidth);
@@ -78,16 +83,8 @@ public class GameManager : MonoBehaviour
     {
         AdjustGroundSpeed();
         MoveGround();
-        TimerDisplay();
         CheckCatSpawn(); // Check if it's time to spawn a cat
     }
-
-    void TimerDisplay()
-    {
-        elapsedTime += Time.deltaTime;
-        TimerText.text = $"{Mathf.FloorToInt(elapsedTime / 60):00}:{Mathf.FloorToInt(elapsedTime % 60):00}";
-    }
-
     public void AddCoins(int amount)
     {
         // Apply the coin multiplier when adding coins
