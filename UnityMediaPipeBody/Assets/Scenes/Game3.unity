@@ -3316,6 +3316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pipeServer: {fileID: 981855261}
   State: 0
+  poseStat: 1
 --- !u!114 &981855264
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4188,6 +4189,8 @@ MonoBehaviour:
   poseAngleCalculator: {fileID: 981855263}
   durationSecond: 10
   poseHologram:
+  - {fileID: 333096035}
+  - {fileID: 333096035}
   - {fileID: 333096035}
   currentPose: -1
 --- !u!114 &1305814329 stripped

@@ -265,7 +265,9 @@ public class GameController : MonoBehaviour
         await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
         poseHologram[randIndex].SetActive(true);
         poseHologram[randIndex].GetComponent<PoseHologram>().startAnimation();
+        poseAngleCalculator.poseStat = randIndex;
         currentPose = randIndex;
+
 
         UnityEngine.Debug.Log("Changed to pose " + currentPose);
         stopCount = false;
