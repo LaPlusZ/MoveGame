@@ -1297,10 +1297,12 @@ MonoBehaviour:
   milisecond: 0
   timeText: {fileID: 438327030}
   gameManager: {fileID: 1212484330}
+  overwriteTimer: 0
+  durationSecond: 0
+  minSec: 0
   secondText: {fileID: 0}
   milisecondText: {fileID: 0}
   poseAngleCalculator: {fileID: 0}
-  durationSecond: 0
   poseHologram: []
   currentPose: -1
 --- !u!1 &203646427
@@ -7883,6 +7885,7 @@ MonoBehaviour:
   walls:
   - {fileID: 2450666137242698958, guid: 5d9b2c6cfeb794f34a45f91839b3ab6a, type: 3}
   - {fileID: 3667016012775405143, guid: 27c9b0eadeda84cca8559f1be467d695, type: 3}
+  - {fileID: 3667016012775405143, guid: 128fa973960634d7cbd374a88a5727a0, type: 3}
 --- !u!4 &1212484332
 Transform:
   m_ObjectHideFlags: 0
@@ -10641,6 +10644,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f433657deb089a8489125c68655afc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followTarget: 0
+  offset: {x: 0, y: 0, z: 0}
+  lookAt: 0
+  lookAtOffset: {x: 0, y: 0, z: 0}
   positionInterpolation: 0
   rotationInterpolation: 0
   shakeIntensity: 0.1
@@ -10883,8 +10890,9 @@ MonoBehaviour:
   headPrefab: {fileID: 6070663460479496251, guid: dd948a2582b6d7745bc83791cb1fa0bd, type: 3}
   anchoredBody: 0
   enableHead: 1
-  multiplier: 10
-  landmarkScale: 0.5
+  enableLines: 1
+  multiplier: 12
+  landmarkScale: 0.75
   maxSpeed: 50
   samplesForPose: 1
 --- !u!4 &1564113168
@@ -10898,7 +10906,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1171450570}
   m_Father: {fileID: 0}
@@ -11586,6 +11594,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7acdc8ef1a67e4341b5101d9ea95cb13, type: 3}
   m_PrefabInstance: {fileID: 2050481666}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1643802515 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1932257069301490115, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
+  m_PrefabInstance: {fileID: 2821868890130618893}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1660915369
 GameObject:
   m_ObjectHideFlags: 0
@@ -16413,6 +16432,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7896908737742635700, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
+      propertyPath: volume
+      value: 
+      objectReference: {fileID: 1643802515}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

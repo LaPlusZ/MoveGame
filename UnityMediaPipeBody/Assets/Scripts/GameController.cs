@@ -273,10 +273,13 @@ public class GameController : MonoBehaviour
         stopCount = false;
     }
 
-    async void EndGame()
+    public async void EndGame()
     {
-        UnityEngine.Debug.Log("No pose left. Well done!");
-        await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
+        if (poseHologram.Count > 0) 
+        {
+            UnityEngine.Debug.Log("No pose left. Well done!");
+            await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
+        }
 
         string[] words = {
             "Fantastic!", "Amazing!", "Well done!", "Excellent!", "Bravo!", 
@@ -287,5 +290,9 @@ public class GameController : MonoBehaviour
 
         int rand = Random.Range(0, words.Length);
         await CountDown(0, words[rand]);
+
+        await Task.Delay(2000);
+
+        GetComponent<UIManager>().loadScene("Home");
     }
 }

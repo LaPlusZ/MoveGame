@@ -24,17 +24,27 @@ public class WallSpawner : MonoBehaviour
         }
     }
 
-    public void spawnWall()
+    public async void spawnWall()
     {
         GameObject wall = walls[currentWall];
         Instantiate(wall, transform.position, wall.transform.rotation);
 
-        if (currentWall < walls.Count - 1) { currentWall += 1; } else { gameObject.SetActive(false); }
+        if (currentWall < walls.Count - 1) 
+        {
+            currentWall += 1;
+        } 
+        else 
+        { 
+            gameObject.SetActive(false);
+
+            await DelayWithTimeScale(10000);
+
+            FindObjectOfType<GameController>().EndGame();
+        }
     }
 
     public void Stop()
     {
-        stopped = true;
         MovingWall[] walls = FindObjectsOfType<MovingWall>();
         foreach (MovingWall wall in walls)
         {
@@ -44,12 +54,21 @@ public class WallSpawner : MonoBehaviour
 
     public void Continue()
     {
-        stopped = false;
         MovingWall[] walls = FindObjectsOfType<MovingWall>();
         foreach (MovingWall wall in walls)
         {
             wall.stopped = false;
             wall.checkTimeOut();
+        }
+    }
+
+    private async Task DelayWithTimeScale(float seconds)
+    {
+        float elapsed = 0f;
+        while (elapsed < seconds)
+        {
+            elapsed += Time.deltaTime; // Accumulates scaled time
+            await Task.Yield();
         }
     }
 }

@@ -146,6 +146,9 @@ class BodyThread(threading.Thread):
                 # Fetch stuff from the capture thread
                 ret = capture.ret
                 image = capture.frame
+
+                if image is None:
+                    return
                 
                 #image.flags.writeable = global_vars.DEBUG
                 results = pose.process(image)

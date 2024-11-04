@@ -21,13 +21,14 @@ public class UIManager : MonoBehaviour
 
     public bool disableOpeningTransition;
 
-    private Volume volume; //Post Processing Volume
+    public Volume volume; //Post Processing Volume
     private ColorAdjustments colorAdjustments;
     private Transform camera;
+    private bool loadingScene;
 
     void Start()
     {
-        volume = FindObjectOfType<Volume>();
+        if (volume == null) { volume = FindObjectOfType<Volume>(); }
         if (volume.profile.TryGet(out ColorAdjustments obj)) 
         {
             colorAdjustments = obj;
@@ -102,6 +103,8 @@ public class UIManager : MonoBehaviour
 
     public async void loadScene(string sceneName)
     {
+        if (loadingScene == true) {return;}
+        loadingScene = true;
         PipeServer ps = FindObjectOfType<PipeServer>();
 
         await transition_close();
