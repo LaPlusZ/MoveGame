@@ -21,6 +21,6 @@ public class CALORIES : MonoBehaviour
         float cal = ((-55.0969f + (0.6309f * heartRate) + (0.1988f * Weight) + (0.2017f * Age)) / 4.184f) * (time/3600);
 
         // Display the calories calculated
-        messageDisplays.text = $"Calories burned: {cal:F2}"; // Display with two decimal places
+        messageDisplays.text = $"{cal:F2}"; // Display with two decimal places
     }
 }

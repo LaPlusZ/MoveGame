@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
     public float milisecond;
     public TextMeshProUGUI timeText;
     public GameObject gameManager;
+    public CALORIES cal;
 
     private bool Timer = false;
 
@@ -51,6 +52,8 @@ public class GameController : MonoBehaviour
 
         await WaitUntilSceneIsLoaded();
         await CountDown(3, "Start!");
+
+        cal.enabled = true;
 
         if (gameManager != null)
         {
