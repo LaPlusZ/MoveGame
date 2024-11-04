@@ -6,8 +6,8 @@ import global_vars
 from bluetooth import BodyThreadBLE
 from sys import exit
 
-# threadBlE = BodyThreadBLE()
-# threadBlE.start()
+threadBlE = BodyThreadBLE()
+threadBlE.start()
 
 thread = BodyThread()
 thread.start()
