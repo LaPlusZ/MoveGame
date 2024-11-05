@@ -1,35 +1,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using UnityEditor;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryUI : MonoBehaviour
 {
     List<InventoryItem> inventory = new List<InventoryItem>();
 
     [SerializeField] GameObject itemUIPrefab;
+    [SerializeField] private PlacementSystem placementSystem;
     [SerializeField] Transform container;
 
     bool isOpen;
 
     void Start()
     {
+        // Clear existing UI elements in the container
         foreach (Transform child in container)
         {
             Destroy(child.gameObject);
         }
 
-        // captured cats from InventoryManager
+        // Get captured cats from InventoryManager
         List<Cat> capturedCats = InventoryManager.Instance.capturedCats;
 
-        // Populate the inventory with captured cats
+        // Populate the inventory UI with captured cats
         foreach (Cat cat in capturedCats)
         {
-            // Assuming your InventoryItem can be constructed from a Cat or has a way to create an InventoryItem from a Cat
-            InventoryItem item = new InventoryItem(cat.CatName, 1, cat.CatImage); // Modify to fit your data structure
+            // Assuming InventoryItem can be created with the given cat properties
+            InventoryItem item = new InventoryItem(cat.CatName, 1, cat.CatImage);
             GameObject itemUI = Instantiate(itemUIPrefab, container);
             itemUI.GetComponent<ItemUI>().SetItemDetails(item);
+
+            int itemId = item.ID; // ***change to cat.ID later
+            itemUI.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => StartPlacement(itemId));
         }
+    }
+
+    private void StartPlacement(int itemId)
+    {
+        placementSystem.StartPlacement(itemId);  // Call PlacementSystem's StartPlacement
+        CloseMenu();
     }
 
     public async void CloseMenu()

@@ -50,7 +50,7 @@ public class PlacementState : IBuildingState
         Vector2Int rotatedSize = GetRotatedSize(database.objectsData[selectedObjectIndex].Size, rotationAngle);
         
         // Check if placement is valid based on rotated size
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex, rotatedSize);
+        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex, rotatedSize, rotationAngle);
         if (!placementValidity) return;
 
         // Place the object with the correct rotation
@@ -67,11 +67,36 @@ public class PlacementState : IBuildingState
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), false, rotationAngle);
     }
 
-    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex, Vector2Int rotatedSize)
+    private bool CheckPlacementValidity(Vector3Int gridPosition, int selectedObjectIndex, Vector2Int rotatedSize, float angle)
     {
         GridData selectedData = database.objectsData[selectedObjectIndex].ID == 0 ? floorData : furnitureData;
-        return selectedData.CanPlaceObjectAt(gridPosition, rotatedSize, rotationAngle);
+
+        // Iterate over each cell in the rotated size
+        for (int x = 0; x < rotatedSize.x; x++)
+        {
+            for (int z = 0; z < rotatedSize.y; z++)
+            {
+                Vector3Int checkPosition = gridPosition + new Vector3Int(x, 0, z);
+
+                // Check if checkPosition is within the grid boundaries
+                /*if (checkPosition.x < floorData.gridBoundaryMin.x || checkPosition.x > floorData.gridBoundaryMax.x ||
+                    checkPosition.z < floorData.gridBoundaryMin.y || checkPosition.z > floorData.gridBoundaryMax.y)
+                {
+                    return false;
+                }*/
+
+                // Check if the cell at checkPosition is occupied
+                if (!selectedData.CanPlaceObjectAt(checkPosition, rotatedSize, rotationAngle))
+                {
+                    return false;
+                }
+            }
+        }
+
+        // If all checks pass, placement is valid
+        return true;
     }
+
 
     private Vector2Int GetRotatedSize(Vector2Int originalSize, float angle)
     {
@@ -82,7 +107,7 @@ public class PlacementState : IBuildingState
     public void UpdateState(Vector3Int gridPosition)
     {
         Vector2Int rotatedSize = GetRotatedSize(database.objectsData[selectedObjectIndex].Size, rotationAngle);
-        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex, rotatedSize);
+        bool placementValidity = CheckPlacementValidity(gridPosition, selectedObjectIndex, rotatedSize, rotationAngle);
         previewSystem.UpdatePosition(grid.CellToWorld(gridPosition), placementValidity, rotationAngle);
     }
 

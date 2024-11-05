@@ -6,6 +6,24 @@ using UnityEngine;
 public class GridData
 {
     private Dictionary<Vector3Int, PlacementData> placedObjects = new();
+    private GameObject gridVisualization;
+
+    public Vector2Int gridBoundaryMin;
+    public Vector2Int gridBoundaryMax;
+
+    public GridData(GameObject gridVisualization)
+    {
+        this.gridVisualization = gridVisualization;
+        GetGridBoundary();
+    }
+
+    private void GetGridBoundary()
+    {
+        gridBoundaryMin.x = - Mathf.RoundToInt((gridVisualization.transform.localScale.x / 2) * 10);
+        gridBoundaryMin.y = - Mathf.RoundToInt((gridVisualization.transform.localScale.z / 2) * 10);
+        gridBoundaryMax.x = Mathf.RoundToInt((gridVisualization.transform.localScale.x / 2) * 10) - 1;
+        gridBoundaryMax.y = Mathf.RoundToInt((gridVisualization.transform.localScale.z / 2) * 10) - 1;
+    }
 
     public void AddObjectAt(Vector3Int gridPosition, Vector2Int objectSize, int ID, int placedObjectIndex, float angle)
     {
@@ -40,12 +58,19 @@ public class GridData
                 Vector3Int offset = angle switch
                 {
                     90 => new Vector3Int(y, 0, objectSize.x - 2 - x),       // Rotate 90 degrees clockwise
-                    180 => new Vector3Int(objectSize.x - 2 - x, 0, objectSize.y - 2 - y), // Rotate 180 degrees
-                    270 => new Vector3Int(objectSize.y - 2 - y, 0, x),      // Rotate 270 degrees clockwise
+                    180 => new Vector3Int(objectSize.x - 2 - x, 0, - y), // Rotate 180 degrees //wtf math
+                    270 => new Vector3Int(- y, 0, x),      // Rotate 270 degrees clockwise //wtf math
                     _ => new Vector3Int(x, 0, y)                            // Default (0 degrees)
                 };
 
                 Vector3Int finalPosition = gridPosition + offset;
+
+                // Skip if the position is outside boundaries
+                /*if (finalPosition.x < gridBoundaryMin.x || finalPosition.x > gridBoundaryMax.x ||
+                    finalPosition.z < gridBoundaryMin.y || finalPosition.z > gridBoundaryMax.y)
+                {
+                    continue;
+                }*/
 
                 occupiedPositions.Add(finalPosition);
             }
