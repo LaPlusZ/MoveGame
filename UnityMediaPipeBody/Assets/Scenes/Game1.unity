@@ -2227,7 +2227,7 @@ MonoBehaviour:
   milisecond: 0
   timeText: {fileID: 110023924}
   gameManager: {fileID: 438556834}
-  cal: {fileID: 0}
+  cal: {fileID: 2089032224}
   overwriteTimer: 1
   durationSecond: 10
   minSec: 1
@@ -2291,6 +2291,17 @@ MonoBehaviour:
   BLE: {fileID: 2089032222}
   messageDisplays: {fileID: 1994103030}
   time: 0
+--- !u!114 &2089032224 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2857652671186811418, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
+  m_PrefabInstance: {fileID: 720391628}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089032214}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce18634f2b001f46b6b2540e4db19dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

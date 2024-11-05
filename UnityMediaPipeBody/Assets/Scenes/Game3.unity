@@ -3282,6 +3282,7 @@ MonoBehaviour:
   headPrefab: {fileID: 6070663460479496251, guid: dd948a2582b6d7745bc83791cb1fa0bd, type: 3}
   anchoredBody: 0
   enableHead: 1
+  enableLines: 1
   multiplier: 10
   landmarkScale: 0.5
   maxSpeed: 50
@@ -4184,15 +4185,29 @@ MonoBehaviour:
   milisecond: 0
   timeText: {fileID: 243227439}
   gameManager: {fileID: 0}
+  cal: {fileID: 1262413676}
+  overwriteTimer: 0
+  durationSecond: 10
+  minSec: 0
   secondText: {fileID: 2004421975}
   milisecondText: {fileID: 1305814329}
   poseAngleCalculator: {fileID: 981855263}
-  durationSecond: 10
   poseHologram:
   - {fileID: 333096035}
   - {fileID: 333096035}
   - {fileID: 333096035}
   currentPose: -1
+--- !u!114 &1262413676 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2857652671186811418, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
+  m_PrefabInstance: {fileID: 1262413671}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262413672}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce18634f2b001f46b6b2540e4db19dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1305814329 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8690892899437230780, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
@@ -5498,6 +5513,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f433657deb089a8489125c68655afc6b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  followTarget: 0
+  offset: {x: 0, y: 0, z: 0}
+  lookAt: 0
+  lookAtOffset: {x: 0, y: 0, z: 0}
   positionInterpolation: 0
   rotationInterpolation: 0
   shakeIntensity: 0.05

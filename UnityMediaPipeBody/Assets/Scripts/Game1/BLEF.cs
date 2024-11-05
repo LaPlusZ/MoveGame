@@ -14,9 +14,8 @@ public class BLE : MonoBehaviour
     public TMP_Text messageDisplay;
     public float HeartRate; // Change this to float
 
-
     private Queue<string> messageQueue = new Queue<string>(); // Queue for messages
-    internal object message;
+    private bool isRunning = true; // Control the while loop in StartPipeServer
 
     void Start()
     {
@@ -29,7 +28,7 @@ public class BLE : MonoBehaviour
         try
         {
             // Create the pipe server
-            using (pipeServer = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 1, PipeTransmissionMode.Byte))
+            using (pipeServer = new NamedPipeServerStream(pipeName, PipeDirection.InOut, 10, PipeTransmissionMode.Byte))
             {
                 Debug.Log("Waiting for client connection...");
 
@@ -37,7 +36,7 @@ public class BLE : MonoBehaviour
                 pipeServer.WaitForConnection();
                 Debug.Log("Client connected!");
 
-                while (pipeServer.IsConnected)
+                while (isRunning && pipeServer.IsConnected)
                 {
                     // Read the incoming message length
                     byte[] lengthBuffer = new byte[4];
@@ -62,6 +61,15 @@ public class BLE : MonoBehaviour
         {
             Debug.LogError($"Pipe Server Error: {ex.Message}");
         }
+        finally
+        {
+            // Ensure the server is properly closed
+            if (pipeServer != null)
+            {
+                pipeServer.Close();
+                Debug.Log("Pipe server closed.");
+            }
+        }
     }
 
     void Update()
@@ -75,18 +83,30 @@ public class BLE : MonoBehaviour
                 message = messageQueue.Dequeue();
             }
             messageDisplay.text = message; // Update the TMP_Text component on the main thread
+            UpdateHeartRate(message);
         }
     }
 
     void OnApplicationQuit()
     {
+        // Signal to stop the server loop
+        isRunning = false;
+
         // Close the pipe when the application quits
         if (pipeServer != null && pipeServer.IsConnected)
         {
-            pipeServer.Close();
-            Debug.Log("Pipe server closed.");
+            try
+            {
+                pipeServer.Close();
+                Debug.Log("Pipe server closed on application quit.");
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"Error closing pipe server: {ex.Message}");
+            }
         }
     }
+
     public void UpdateHeartRate(string newHeartRate)
     {
         // Attempt to parse the incoming string to a float

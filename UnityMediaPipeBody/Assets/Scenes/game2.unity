@@ -1297,6 +1297,7 @@ MonoBehaviour:
   milisecond: 0
   timeText: {fileID: 438327030}
   gameManager: {fileID: 1212484330}
+  cal: {fileID: 186131494}
   overwriteTimer: 0
   durationSecond: 0
   minSec: 0
@@ -1305,6 +1306,17 @@ MonoBehaviour:
   poseAngleCalculator: {fileID: 0}
   poseHologram: []
   currentPose: -1
+--- !u!114 &186131494 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2857652671186811418, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
+  m_PrefabInstance: {fileID: 2821868890130618893}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186131492}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce18634f2b001f46b6b2540e4db19dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &203646427
 GameObject:
   m_ObjectHideFlags: 0
