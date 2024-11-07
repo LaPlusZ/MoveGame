@@ -252,7 +252,8 @@ public class GameController : MonoBehaviour
             poseLeft -= 1;
         }
 
-        int randIndex = Random.Range(0, poseHologram.Count - 1);
+        
+        int randIndex = currentPose + 1;//Random.Range(0, poseHologram.Count - 1);
         int tryInterval = 0;
         while (randIndex == currentPose && tryInterval < 10)
         {
@@ -265,6 +266,7 @@ public class GameController : MonoBehaviour
             return;
         } 
 
+        currentPose++;
         await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
         poseHologram[randIndex].SetActive(true);
         poseHologram[randIndex].GetComponent<PoseHologram>().startAnimation();

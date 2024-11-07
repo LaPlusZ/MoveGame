@@ -25,11 +25,11 @@ public class SmoothCarouselMenu : MonoBehaviour
 
     private Vector3[] rotations = new Vector3[5]
     {
-        new Vector3(-90f, 0f, 50f),   // Rotation 0 (far left)
-        new Vector3(-90f, 0f, 25f),   // Rotation 1 (left)
-        new Vector3(-90f, 0f, 0f),    // Rotation 2 (center)
-        new Vector3(-90f, 0f, -25f),  // Rotation 3 (right)
-        new Vector3(-90f, 0f, -50f)   // Rotation 4 (far right)
+        new Vector3(90f, 180f, -50f),   // Rotation 0 (far left)
+        new Vector3(90f, 180f, -25f),   // Rotation 1 (left)
+        new Vector3(90f, 180f, 0f),    // Rotation 2 (center)
+        new Vector3(90f, 180f, 25f),  // Rotation 3 (right)
+        new Vector3(90f, 180f, 50f)   // Rotation 4 (far right)
     };
 
     void Start()
