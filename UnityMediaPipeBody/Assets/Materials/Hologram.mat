@@ -23,7 +23,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: IMG_1501
+  m_Name: Hologram
   m_Shader: {fileID: -6465566751694194690, guid: 5f3baba447b9e43c9be291aa407ff7cc, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -59,7 +59,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Base_Image:
-        m_Texture: {fileID: 2800000, guid: 1ca44b0234efe3f41b9e334a2c8c9b10, type: 3}
+        m_Texture: {fileID: 2800000, guid: a171a647d80294a7cafb65847a3b36ad, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BentNormalMap:
