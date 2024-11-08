@@ -22,13 +22,16 @@ public class ShopUI : MonoBehaviour
 
         foreach (ObjectData item in objectDatabase.objectsData)
         {
-            GameObject itemUI = Instantiate(shopUIPrefab, container);
-            ItemShopUI itemShopUIScript = itemUI.GetComponent<ItemShopUI>();
-            itemShopUIScript.SetItemDetails(item.Name, item.Price, item.Prefab.GetComponent<SpriteRenderer>()?.sprite);
+            if (item.ID >= 1 && item.ID <= 99) 
+            {
+                GameObject itemUI = Instantiate(shopUIPrefab, container);
+                ItemShopUI itemShopUIScript = itemUI.GetComponent<ItemShopUI>();
+                itemShopUIScript.SetItemDetails(item.Name, item.Price, item.Prefab.GetComponent<SpriteRenderer>()?.sprite);
 
-            //each button ui when click will call startplacement form PLacementSystem 
-            int itemId = item.ID;  // Store item ID in a local variable for the callback
-            itemUI.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => StartPlacement(itemId));
+                // Store item ID in a local variable for the callback
+                int itemId = item.ID;
+                itemUI.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => StartPlacement(itemId));
+            }
         }
     }
 
