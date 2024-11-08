@@ -497,7 +497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parent: {fileID: 1135551622}
-  landmarkPrefab: {fileID: 4198472772038802745, guid: 2d7c9010dd98a2c4ea18ff18d4704668, type: 3}
+  landmarkPrefab: {fileID: 4198472772038802745, guid: 6c57f8c70e0204c038f98ff18bbec14c, type: 3}
   linePrefab: {fileID: 6873139827369952066, guid: a26721b39f9a2544f8af1b49c82107d5, type: 3}
   headPrefab: {fileID: 6070663460479496251, guid: dd948a2582b6d7745bc83791cb1fa0bd, type: 3}
   anchoredBody: 1
@@ -1269,6 +1269,10 @@ PrefabInstance:
     - target: {fileID: 2276337430904819739, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2857652671186811418, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2875664072254237988, guid: 0c4e44091685b40c3b0c524eea22b262, type: 3}
       propertyPath: m_AnchorMax.x
@@ -2297,7 +2301,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 720391628}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2089032214}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cce18634f2b001f46b6b2540e4db19dc, type: 3}
   m_Name: 
