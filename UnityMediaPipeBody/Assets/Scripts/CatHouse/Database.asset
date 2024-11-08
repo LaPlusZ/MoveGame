@@ -31,52 +31,58 @@ MonoBehaviour:
     <Prefab>k__BackingField: {fileID: 4546178104049662753, guid: c23f1181e20601b419cd8fc3b5fb5302, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
+  - <Name>k__BackingField: BedBunk
+    <ID>k__BackingField: 4
+    <Size>k__BackingField: {x: 2, y: 1}
+    <Prefab>k__BackingField: {fileID: 4739503130469346286, guid: 8b53eec8d41ff9c469962dedbbb0ca89, type: 3}
+    <Price>k__BackingField: 0
+    <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: WhiteBlackCat
     <ID>k__BackingField: 101
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 2797269347275906894, guid: 2969cefc2f0674891bf09c00261bf93d, type: 3}
+    <Prefab>k__BackingField: {fileID: 2721785563011560347, guid: 7742391d903dba442b5c85b6d4526877, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: CreamCat
     <ID>k__BackingField: 102
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 7591631136440335833, guid: c659f63d1f137431d91686bbcd32b800, type: 3}
+    <Prefab>k__BackingField: {fileID: 1081803110798268907, guid: 944e4226c6d572a469d254b3cc7d1935, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: GreyWhiteCat
     <ID>k__BackingField: 103
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 1067143676426918765, guid: ccd09d60c1d9240f6b333ca614fc27ee, type: 3}
+    <Prefab>k__BackingField: {fileID: 7418590474948737473, guid: a813fe2b0b994504ab52a0b71d0d324d, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: GreyCat
     <ID>k__BackingField: 104
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 1226403578098722431, guid: 32e49492c51af48159fbfa717138f7ee, type: 3}
+    <Prefab>k__BackingField: {fileID: 6049882561010448935, guid: 81b667eb6c21a3342863f040d5c1d798, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: OrangeBlackCat
     <ID>k__BackingField: 105
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 7612020104322274461, guid: 5ca4f27357a374ef8b649da404b694d3, type: 3}
+    <Prefab>k__BackingField: {fileID: 6289790531010350203, guid: 9c67327deca34e047bbe9301f7c0ca7a, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: ThaiCat
     <ID>k__BackingField: 106
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 5077814712302571398, guid: 92ca9590e52d846488d0efbfe760a9e5, type: 3}
+    <Prefab>k__BackingField: {fileID: 7428942727518020744, guid: 62bc6b39d97484949b84870e8cccdbf0, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: WhiteCat
     <ID>k__BackingField: 107
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 3466863850172672499, guid: 3b64f53fb0e6d4b40a1ec2e40b266606, type: 3}
+    <Prefab>k__BackingField: {fileID: 3633152825662152345, guid: fac9dffc4479fde4ba40e6d947c6237d, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: OrangeWhiteCat
     <ID>k__BackingField: 108
     <Size>k__BackingField: {x: 1, y: 1}
-    <Prefab>k__BackingField: {fileID: 5526095811697727678, guid: 36198d8649655465f8dd14749c7a56c5, type: 3}
+    <Prefab>k__BackingField: {fileID: 2612489105028577459, guid: b83804b465b3c464fa19347f4773e3d9, type: 3}
     <Price>k__BackingField: 0
     <displayImage>k__BackingField: {fileID: 0}
   - <Name>k__BackingField: BlackWhiteCat

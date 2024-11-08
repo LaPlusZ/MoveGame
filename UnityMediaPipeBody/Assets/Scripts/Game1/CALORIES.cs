@@ -19,7 +19,7 @@ public class CALORIES : MonoBehaviour
 
         // Calculate calories burned
         float cal = ((-55.0969f + (0.6309f * heartRate) +(0.1988f * Weight) +(0.2017f * Age))/ 4.184f) * 60 * (time/3600);
-        Debug.Log(heartRate);
+        //Debug.Log(heartRate);
         // Display the calories calculated
         messageDisplays.text = $"{cal:F2}"; // Display with two decimal places
     }

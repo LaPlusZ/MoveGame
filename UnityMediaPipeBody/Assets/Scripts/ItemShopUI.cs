@@ -14,7 +14,7 @@ public class ItemShopUI : MonoBehaviour
     public void SetItemDetails(string itemName, int price, Sprite itemImage = null)
     {
         label.text = itemName;
-        priceText.text = price + " coins";
+        priceText.text = price + " cc";
 
         if (itemImage != null)
         {

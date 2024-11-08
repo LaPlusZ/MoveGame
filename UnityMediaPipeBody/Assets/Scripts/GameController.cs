@@ -266,11 +266,11 @@ public class GameController : MonoBehaviour
             return;
         } 
 
-        currentPose++;
         await poseHologram[currentPose < 0 ? 0 : currentPose].GetComponent<PoseHologram>().closeAnimation();
+        currentPose++;
         poseHologram[randIndex].SetActive(true);
         poseHologram[randIndex].GetComponent<PoseHologram>().startAnimation();
-        poseAngleCalculator.poseStat = randIndex;
+        //poseAngleCalculator.poseStat = randIndex;
         currentPose = randIndex;
 
 

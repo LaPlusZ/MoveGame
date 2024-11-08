@@ -28,7 +28,7 @@ public class PoseAngleCalculator : MonoBehaviour
 
     private void Update()
     {
-        
+        poseStat = FindObjectOfType<GameController>().currentPose;
         // Ensure the body is active before calculations
 
         if (body != null && body.active)
