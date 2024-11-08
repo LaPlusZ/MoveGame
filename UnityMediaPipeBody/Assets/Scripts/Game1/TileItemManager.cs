@@ -18,7 +18,7 @@ public class TileItemManager : MonoBehaviour
     private void Start()
     {
         SpawnCoin();
-        SpawnCat();
+        //SpawnCat();
     }
 
     void Update()

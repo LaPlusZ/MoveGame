@@ -83,7 +83,9 @@ public class GameManager : MonoBehaviour
     {
         AdjustGroundSpeed();
         MoveGround();
-        CheckCatSpawn(); // Check if it's time to spawn a cat
+        CheckCatSpawn(); // Check if it's time to spawn a cat4
+
+        elapsedTime += Time.deltaTime;
     }
     public void AddCoins(int amount)
     {
@@ -166,7 +168,7 @@ public class GameManager : MonoBehaviour
 
     void SetRandomCatSpawnTime()
     {
-        catSpawnInterval = Random.Range(5, 10);
+        catSpawnInterval = Random.Range(1, 3);
         nextCatSpawnTime = elapsedTime + catSpawnInterval * 60f;
     }
 
