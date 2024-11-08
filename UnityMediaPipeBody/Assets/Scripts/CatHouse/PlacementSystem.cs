@@ -33,7 +33,7 @@ public class PlacementSystem : MonoBehaviour
         StopPlacement();
         floorData = new GridData(gridVisualization);
         furnitureData = new(gridVisualization);
-   
+        
     }
 
     public void StartPlacement(int ID)

@@ -1680,7 +1680,6 @@ GameObject:
   - component: {fileID: 583876261}
   - component: {fileID: 583876260}
   - component: {fileID: 583876263}
-  - component: {fileID: 583876264}
   m_Layer: 5
   m_Name: ShopPage
   m_TagString: Untagged
@@ -1777,21 +1776,6 @@ MonoBehaviour:
   placementSystem: {fileID: 1506704642}
   shopUIPrefab: {fileID: 3220726843400694081, guid: 27a012541683949caad30b8832cc928f, type: 3}
   container: {fileID: 1605190426}
---- !u!114 &583876264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 583876257}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d9920dc7c12f440ab50ce339680e81a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemUIPrefab: {fileID: 3220726843400694081, guid: 27a012541683949caad30b8832cc928f, type: 3}
-  placementSystem: {fileID: 0}
-  container: {fileID: 716752277}
 --- !u!1 &677697685
 GameObject:
   m_ObjectHideFlags: 0
@@ -6332,6 +6316,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemUIPrefab: {fileID: 3220726843400694081, guid: 2e7f80e6064e2447da6c389e93ac6f03, type: 3}
   placementSystem: {fileID: 1506704642}
+  objectDatabase: {fileID: 11400000, guid: f8496582fc38794499f627ee9a2f5869, type: 2}
   container: {fileID: 5083157148334679181}
 --- !u!1 &2255322288696255423
 GameObject:
@@ -10740,6 +10725,7 @@ MonoBehaviour:
   paused: 0
   db: 0
   disableOpeningTransition: 0
+  volume: {fileID: 0}
 --- !u!114 &7896908737686060933
 MonoBehaviour:
   m_ObjectHideFlags: 0

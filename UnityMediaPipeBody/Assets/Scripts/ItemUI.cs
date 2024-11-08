@@ -13,15 +13,15 @@ public class ItemUI : MonoBehaviour
     [SerializeField] Image displayImage;
 
     // Optional: Initialize the item details when setting up the item
-    public void SetItemDetails(InventoryItem itemID)
+    public void SetItemDetails(string itemName, int itemID, Sprite itemImage = null)
     {
-        this.itemID = itemID;
+        //this.itemID = itemID;
 
-        label.text = itemID.itemName;
-        countText.text = "x" + itemID.itemCount;
-        if (itemID.itemImage != null)
+        label.text = itemName;
+        countText.text = "x1";
+        if (itemImage != null)
         {
-            displayImage.sprite = itemID.itemImage;
+            displayImage.sprite = itemImage;
         }
         else
         {

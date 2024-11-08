@@ -11,7 +11,9 @@ public class InventoryUI : MonoBehaviour
 
     [SerializeField] GameObject itemUIPrefab;
     [SerializeField] private PlacementSystem placementSystem;
+    [SerializeField] private ObjectDatabaseSo objectDatabase;
     [SerializeField] Transform container;
+
 
     bool isOpen;
 
@@ -23,7 +25,7 @@ public class InventoryUI : MonoBehaviour
             Destroy(child.gameObject);
         }
 
-        // Get captured cats from InventoryManager
+        /*// Get captured cats from InventoryManager
         List<Cat> capturedCats = InventoryManager.Instance.capturedCats;
 
         // Populate the inventory UI with captured cats
@@ -36,6 +38,21 @@ public class InventoryUI : MonoBehaviour
 
             int itemId = item.ID; // ***change to cat.ID later
             itemUI.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => StartPlacement(itemId));
+        }*/ // no save data right now
+
+        foreach (ObjectData item in objectDatabase.objectsData)
+        {
+            if (item.ID >= 100 && item.ID <= 200)
+            {
+                GameObject itemUI = Instantiate(itemUIPrefab, container);
+                ItemUI itemUIScript = itemUI.GetComponent<ItemUI>();
+                itemUIScript.SetItemDetails(item.Name, item.Price);
+
+
+                // Store item ID in a local variable for the callback
+                int itemId = item.ID;
+                itemUI.GetComponent<UnityEngine.UI.Button>().onClick.AddListener(() => StartPlacement(itemId));
+            }
         }
     }
 

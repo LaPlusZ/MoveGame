@@ -16,7 +16,7 @@ public class InventoryItem
     public Vector2Int Size = Vector2Int.one;
 
     // Constructor to easily create new items
-    public InventoryItem(string name, int count, Sprite image, int itemID = 99)
+    public InventoryItem(string name, int count, Sprite image, int itemID = 100)
     {
         itemName = name;
         itemCount = count;
