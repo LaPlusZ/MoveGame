@@ -53,11 +53,16 @@ public class BLUE : MonoBehaviour
 
     void OnApplicationQuit()
     {
+        CleanUp();
+    }
+
+    public void CleanUp()
+    {
         // Close the pipe when the application quits
         if (pipeServer != null && pipeServer.IsConnected)
         {
             pipeServer.Close();
             Debug.Log("Pipe server closed.");
-        }
+        }   
     }
 }

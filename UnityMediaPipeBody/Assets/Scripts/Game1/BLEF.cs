@@ -85,9 +85,31 @@ public class BLE : MonoBehaviour
             messageDisplay.text = message; // Update the TMP_Text component on the main thread
             UpdateHeartRate(message);
         }
+        else
+        { 
+            messageDisplay.transform.parent.gameObject.SetActive(false);
+        }
     }
 
     void OnApplicationQuit()
+    {
+        CleanUp();
+    }
+
+    public void UpdateHeartRate(string newHeartRate)
+    {
+        // Attempt to parse the incoming string to a float
+        if (float.TryParse(newHeartRate, out float result))
+        {
+            HeartRate = result; // Assign the parsed float value to HeartRate
+        }
+        else
+        {
+            Debug.LogError("Invalid heart rate input: " + newHeartRate);
+        }
+    }
+
+    public void CleanUp()
     {
         // Signal to stop the server loop
         isRunning = false;
@@ -104,19 +126,6 @@ public class BLE : MonoBehaviour
             {
                 Debug.LogError($"Error closing pipe server: {ex.Message}");
             }
-        }
-    }
-
-    public void UpdateHeartRate(string newHeartRate)
-    {
-        // Attempt to parse the incoming string to a float
-        if (float.TryParse(newHeartRate, out float result))
-        {
-            HeartRate = result; // Assign the parsed float value to HeartRate
-        }
-        else
-        {
-            Debug.LogError("Invalid heart rate input: " + newHeartRate);
         }
     }
 }

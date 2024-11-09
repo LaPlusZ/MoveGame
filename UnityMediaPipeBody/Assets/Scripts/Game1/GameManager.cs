@@ -102,7 +102,10 @@ public class GameManager : MonoBehaviour
 
     void UpdateCoinUI()
     {
-        coinText.text = "Coins: " + coin.ToString();
+        if (coinText)
+        {
+            coinText.text = "Coins: " + coin.ToString();
+        }
     }
 
     void MoveGround()

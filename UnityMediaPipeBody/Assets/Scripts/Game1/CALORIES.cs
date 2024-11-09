@@ -8,14 +8,23 @@ public class CALORIES : MonoBehaviour
     public BLE BLE; // Reference to the BLE class
     public TMP_Text messageDisplays; // Text display for calories
     public float time;
+
+    void Start()
+    {
+        float heartRate = BLE.HeartRate;
+        if (heartRate == 0) { messageDisplays.transform.parent.gameObject.SetActive(false); return; }
+    }
+
     void Update()
     {
+        // Ensure BLE.HeartRate is now a float
+        float heartRate = BLE.HeartRate;
+        if (heartRate == 0) { return; } 
+        messageDisplays.transform.parent.gameObject.SetActive(true);
+
         int Weight = 72; // Weight in kg
         int Age = 17; // Age in years
         time += Time.deltaTime;
-
-        // Ensure BLE.HeartRate is now a float
-        float heartRate = BLE.HeartRate;
 
         // Calculate calories burned
         float cal = ((-55.0969f + (0.6309f * heartRate) +(0.1988f * Weight) +(0.2017f * Age))/ 4.184f) * 60 * (time/3600);

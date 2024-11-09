@@ -106,11 +106,21 @@ public class UIManager : MonoBehaviour
         if (loadingScene == true) {return;}
         loadingScene = true;
         PipeServer ps = FindObjectOfType<PipeServer>();
+        BLUE ble = FindObjectOfType<BLUE>();
+        BLE blef = FindObjectOfType<BLE>();
 
         await transition_close();
         if (ps)
         {
             ps.Cleanup();
+        }
+        if (ble)
+        {
+            ble.CleanUp();
+        }
+        if (blef)
+        {
+            blef.CleanUp();
         }
         
         SceneManager.LoadScene(sceneName);
