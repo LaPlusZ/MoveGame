@@ -18,15 +18,18 @@ public class CatPrefabs : MonoBehaviour
             if (qteSystem != null)
             {
                 // Start QTE and pass a callback function to handle the result
-                qteSystem.StartQTE(gameObject, OnQTEResult);
+                //qteSystem.StartQTE(gameObject, OnQTEResult);
                 Debug.Log("QTE SYSTEM START");
             }
             else
             {
                 Debug.LogError("QTE system not found in the scene!");
             }
+            Destroy(gameObject);
         }
     }
+
+    
 
     // Callback function to handle QTE result
     private void OnQTEResult(bool success)
